@@ -9,34 +9,28 @@
 #include "EasyRTSPClientAPI.h"
 #include <windows.h>
 
-#define RTSPURL "rtsp://admin:admin@192.168.1.106/"
+#define RTSPURL "rtsp://admin:admin@wellsen.f3322.org/"
 
 Easy_RTSP_Handle fRTSPHandle = 0;
 
-/* RTSPSource从RTSPClient获取数据后回调给上层 */
-int Easy_APICALL __RTSPClientCallBack( int _chid, int *_chPtr, int _mediatype, char *pbuf, RTSP_FRAME_INFO *frameinfo)
+/* RTSPClient数据回调 */
+int Easy_APICALL __RTSPClientCallBack( int _chid, int *_chPtr, int _frameType, char *_pBuf, RTSP_FRAME_INFO* _frameInfo)
 {
-	if (NULL != frameinfo)
+	if (_frameType == EASY_SDK_VIDEO_FRAME_FLAG)
 	{
-		if (frameinfo->height==1088)		frameinfo->height=1080;
-		else if (frameinfo->height==544)	frameinfo->height=540;
+		printf("Get %s Video Len:%d \ttimestamp:%u.%u\n",_frameInfo->type==EASY_SDK_VIDEO_FRAME_I?"I":"P", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 	}
-
-	if (_mediatype == MEDIA_TYPE_VIDEO)
+	else if (_frameType == EASY_SDK_AUDIO_FRAME_FLAG)
 	{
-		printf("Get %s Video Len:%d tm:%d rtp:%d\n",frameinfo->type==FRAMETYPE_I?"I":"P", frameinfo->length, frameinfo->timestamp_sec, frameinfo->rtptimestamp);
+		printf("Get %u Audio Len:%d \ttimestamp:%u.%u\n", _frameInfo->codec, _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 	}
-	else if (_mediatype == MEDIA_TYPE_AUDIO)
+	else if (_frameType == EASY_SDK_EVENT_FRAME_FLAG)
 	{
-		printf("Get Audio Len:%d tm:%d rtp:%d\n", frameinfo->length, frameinfo->timestamp_sec, frameinfo->rtptimestamp);
-	}
-	else if (_mediatype == MEDIA_TYPE_EVENT)
-	{
-		if (NULL == pbuf && NULL == frameinfo)
+		if (NULL == _pBuf && NULL == _frameInfo)
 		{
 			printf("Connecting:%s ...\n", RTSPURL);
 		}
-		else if (NULL!=frameinfo && frameinfo->type==0xF1)
+		else if (NULL!=_frameInfo && _frameInfo->type==0xF1)
 		{
 			printf("Lose Packet:%s ...\n", RTSPURL);
 		}
@@ -48,20 +42,18 @@ int main()
 {
 	//创建RTSPSource
 	EasyRTSP_Init(&fRTSPHandle);
-	if (NULL == fRTSPHandle) return 0;
 
-	unsigned int mediaType = MEDIA_TYPE_VIDEO;
-	mediaType |= MEDIA_TYPE_AUDIO;	//换为RTSPSource, 屏蔽声音
+	if (NULL == fRTSPHandle) return 0;
 	
-	//设置数据回调处理
+	// 设置数据回调处理
 	EasyRTSP_SetCallback(fRTSPHandle, __RTSPClientCallBack);
-	//打开RTSP流
+
+	unsigned int mediaType = EASY_SDK_VIDEO_FRAME_FLAG | EASY_SDK_AUDIO_FRAME_FLAG;
+
+	// 打开RTSP流
 	EasyRTSP_OpenStream(fRTSPHandle, 0, RTSPURL, RTP_OVER_TCP, mediaType, 0, 0, NULL, 1000, 0);
 
-	while(1)
-	{
-		Sleep(10);	
-	};
+	getchar();
    
 	EasyRTSP_CloseStream(fRTSPHandle);
 	EasyRTSP_Deinit(&fRTSPHandle);
