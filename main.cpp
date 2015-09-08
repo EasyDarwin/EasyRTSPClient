@@ -16,10 +16,38 @@ Easy_RTSP_Handle fRTSPHandle = 0;
 /* RTSPClient数据回调 */
 int Easy_APICALL __RTSPClientCallBack( int _chid, int *_chPtr, int _frameType, char *_pBuf, RTSP_FRAME_INFO* _frameInfo)
 {
-	if (_frameType == EASY_SDK_VIDEO_FRAME_FLAG)//回调视频数据
+	if (_frameType == EASY_SDK_VIDEO_FRAME_FLAG)//回调视频数据，包含00 00 00 01头
 	{
 		if (_frameInfo->codec == EASY_SDK_VIDEO_CODEC_H264)
-			printf("Get %s H264 Len:%d \ttimestamp:%u.%u\n",_frameInfo->type==EASY_SDK_VIDEO_FRAME_I?"I":"P", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
+		{
+			/* 
+				每一个I关键帧都是SPS+PPS+IDR的组合
+				|---------------------|----------------|-------------------------------------|
+				|                     |                |                                     |
+				0-----------------reserved1--------reserved2-------------------------------length
+			*/
+			if (_frameInfo->type == EASY_SDK_VIDEO_FRAME_I)
+			{
+				printf("Get I H264 Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
+				char sps[2048] = { 0 };
+				char pps[2048] = { 0 };
+				char* IFrame = NULL;
+				unsigned int spsLen,ppsLen,iFrameLen = 0;
+
+				spsLen = _frameInfo->reserved1;							// SPS数据长度
+				ppsLen = _frameInfo->reserved2 - _frameInfo->reserved1;	// PPS数据长度
+				iFrameLen = _frameInfo->length - spsLen - ppsLen;		// IDR数据长度
+
+				memcpy(sps, _pBuf, spsLen);			//SPS数据，包含00 00 00 01
+				memcpy(pps, _pBuf+spsLen, ppsLen);	//PPS数据，包含00 00 00 01
+				IFrame = _pBuf + spsLen + ppsLen;	//IDR数据，包含00 00 00 01
+
+			}
+			else if (_frameInfo->type == EASY_SDK_VIDEO_FRAME_P)
+			{
+				printf("Get P H264 Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
+			}
+		}
 		else if (_frameInfo->codec == EASY_SDK_VIDEO_CODEC_MJPEG)
 			printf("Get MJPEG Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 		else if (_frameInfo->codec == EASY_SDK_VIDEO_CODEC_MPEG4)
