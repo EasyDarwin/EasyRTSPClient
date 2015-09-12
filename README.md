@@ -8,7 +8,7 @@ EasyRTSPClient是EasyDarwin开源流媒体提供的一套非常稳定、易用�
 	
 	Windows编译方法，
 
-    	Visual Studio 2010编译：./EasyRTSPClient-master/win/EasyRTSPClient.sln
+    	Visual Studio 2010 编译：./EasyRTSPClient-master/win/EasyRTSPClient.sln
 
 	Linux编译方法，
 		
