@@ -2,7 +2,7 @@
 
 ### EasyRTSPClient是什么？ ###
 
-EasyRTSPClient是EasyDarwin开源流媒体提供的一套非常稳定、易用、支持重连的RTSPClient工具，接口调用非常简单，再也不用像调用live555那样处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY的复杂流程，担心内存释放的问题了！我们提供了多个调用示例：
+EasyRTSPClient是EasyDarwin开源流媒体团队提供的一套非常稳定、易用、支持重连的RTSPClient工具，接口调用非常简单，再也不用像调用live555那样处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY的复杂流程，担心内存释放的问题了！我们提供了多个调用示例：
 
 - **EasyRTSPClient**：以RTSPClient的形式，从RTSP URL将音视频获取到本地；
 	
@@ -64,7 +64,7 @@ EASY\_SDK\_AUDIO\_FRAME\_FLAG数据可支持多种音频格式：
 
 邮件：[support@easydarwin.org](mailto:support@easydarwin.org) 
 
-WEB：[EasyDarwin.org](http://www.easydarwin.org)
+WEB：[www.EasyDarwin.org](http://www.easydarwin.org)
 
 Copyright (c) EasyDarwin.org 2012-2015
 
