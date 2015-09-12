@@ -66,6 +66,6 @@ EASY\_SDK\_AUDIO\_FRAME\_FLAG数据可支持多种音频格式：
 
 WEB：[www.EasyDarwin.org](http://www.easydarwin.org)
 
-Copyright (c) EasyDarwin.org 2012-2015
+Copyright &copy; EasyDarwin.org 2012-2015
 
 ![EasyDarwin](http://www.easydarwin.org/skin/easydarwin/images/wx_qrcode.jpg)
