@@ -56,8 +56,16 @@ EASY\_SDK\_AUDIO\_FRAME\_FLAG数据可支持多种音频格式：
 	#define EASY_SDK_AUDIO_CODEC_G726			/* G726 */
 
 
+
+
+----------
+
 ### 获取更多信息 ###
 
 邮件：[support@easydarwin.org](mailto:support@easydarwin.org) 
 
 WEB：[EasyDarwin.org](http://www.easydarwin.org)
+
+Copyright (c) EasyDarwin.org 2012-2015
+
+![EasyDarwin](http://www.easydarwin.org/skin/easydarwin/images/wx_qrcode.jpg)
