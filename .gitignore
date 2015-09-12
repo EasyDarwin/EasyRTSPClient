@@ -34,3 +34,4 @@ _ReSharper*/
 [Pp]rivate*/
 ipch/
 *.opensdf
+/build/

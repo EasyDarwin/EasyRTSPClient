@@ -6,8 +6,11 @@
 */
 #define _CRTDBG_MAP_ALLOC
 #include <stdio.h>
+#include <string.h>
 #include "EasyRTSPClientAPI.h"
+#ifdef WIN32
 #include <windows.h>
+#endif
 
 #define RTSPURL "rtsp://admin:admin@wellsen.f3322.org/"
 
