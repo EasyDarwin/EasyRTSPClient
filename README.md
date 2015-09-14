@@ -18,7 +18,7 @@ EasyRTSPClient是EasyDarwin开源流媒体团队提供的一套非常稳定、�
 
 - **EasyDarwin**：您也可以参考EasyDarwin中EasyHLSSession(HLS直播模块)、EasyRelaySession(RTSP转发模块)对EasyRTSPClient库的调用方法，详细请看：[https://github.com/EasyDarwin/EasyDarwin](https://github.com/EasyDarwin/EasyDarwin "EasyDarwin")；
 
-- **我们同时提供Windows、Linux、ARM版本的libEasyRTSPClient库**：arm版本请将交叉编译工具链发送至support@easydarwin.org，我们会帮您具体编译
+- **我们同时提供Windows、Linux、ARM版本的libEasyRTSPClient库**：arm版本请将交叉编译工具链发送至[support@easydarwin.org](mailto:support@easydarwin.org "EasyDarwin mail")，我们会帮您具体编译
 
 ## 调用流程 ##
 ![](http://www.easydarwin.org/skin/easydarwin/images/easyrtspclient.png)
@@ -53,8 +53,6 @@ EASY\_SDK\_AUDIO\_FRAME\_FLAG数据可支持多种音频格式：
 	#define EASY_SDK_AUDIO_CODEC_AAC			/* AAC */
 	#define EASY_SDK_AUDIO_CODEC_G711A			/* G711 alaw*/
 	#define EASY_SDK_AUDIO_CODEC_G711U			/* G711 ulaw*/
-	#define EASY_SDK_AUDIO_CODEC_G726			/* G726 */
-
 
 
 ## 获取更多信息 ##
