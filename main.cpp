@@ -12,7 +12,7 @@
 #include <windows.h>
 #endif
 
-#define RTSPURL "rtsp://admin:admin@wellsen.f3322.org/"
+#define RTSPURL "rtsp://admin:admin@anfengde.f3322.org/"
 
 Easy_RTSP_Handle fRTSPHandle = 0;
 
