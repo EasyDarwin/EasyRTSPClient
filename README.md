@@ -24,6 +24,9 @@ EasyRTSPClient是EasyDarwin开源流媒体团队提供的一套非常稳定、�
 ![](http://www.easydarwin.org/skin/easydarwin/images/easyrtspclient.png)
 
 
+## 设计方法 ##
+EasyRTSPClient参考live555 testProg中的testRTSPClient示例程序，将一个live555 testRTSPClient封装在一个类中，例如，我们称为Class EasyRTSPClient，在EasyRTSP_Init接口调用时，我们新建EasyRTSPClient对象、在EasyRTSP_OpenStream接口调用时，我们建立线程，装载live555的TaskScheduler->SingleStep(0)，然后再进行RTSP的具体流程，这个就可以直接用testRTSPClient的使用流程了、关闭RTSPClient，我们调用EasyRTSP_CloseStream接口，内部实现参考testRTSPClient中的shutdownStream方法，最后delete EasyRTSPClient类，这样整个过程就完整了！
+
 ### RTSPSourceCallBack数据回调说明 ###
 EasyRTSPClient可以回调出多种类型的数据：
 
