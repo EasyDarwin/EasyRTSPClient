@@ -4,15 +4,11 @@
 	WEChat: EasyDarwin
 	Website: http://www.EasyDarwin.org
 */
-#define _CRTDBG_MAP_ALLOC
 #include <stdio.h>
 #include <string.h>
 #include "EasyRTSPClientAPI.h"
-#ifdef WIN32
-#include <windows.h>
-#endif
 
-#define RTSPURL "rtsp://admin:admin@anfengde.f3322.org/"
+#define RTSPURL "rtsp://admin:admin@anfengde.f3322.org/22"
 
 Easy_RTSP_Handle fRTSPHandle = 0;
 
