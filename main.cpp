@@ -99,6 +99,7 @@ int main(int argc, char** argv)
 	if (argc < 2) 
 	{
 		usage(argv[0]);
+		printf("Press Enter exit...\n");
 		getchar();
 		return 1;
 	}
@@ -120,6 +121,7 @@ int main(int argc, char** argv)
 	// 打开RTSP流
 	EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, RTP_OVER_TCP, mediaType, 0, 0, NULL, 1000, 0);
 
+	printf("Press Enter exit...\n");
 	getchar();
    
 	// 关闭RTSPClient
