@@ -8,7 +8,7 @@
 #include <string.h>
 #include "EasyRTSPClientAPI.h"
 
-#define RTSPURL "rtsp://admin:admin@anfengde.f3322.org/22"
+char fRTSPURL[256] = { 0 };
 
 Easy_RTSP_Handle fRTSPHandle = 0;
 
@@ -67,11 +67,11 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, int *_chPtr, int _frameType, c
 	{
 		if (NULL == _pBuf && NULL == _frameInfo)
 		{
-			printf("Connecting:%s ...\n", RTSPURL);
+			printf("Connecting:%s ...\n", fRTSPURL);
 		}
 		else if (NULL!=_frameInfo && _frameInfo->type==0xF1)
 		{
-			printf("Lose Packet:%s ...\n", RTSPURL);
+			printf("Lose Packet:%s ...\n", fRTSPURL);
 		}
 	}
 	else if (_frameType == EASY_SDK_MEDIA_INFO_FLAG)//回调出媒体信息
@@ -88,8 +88,23 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, int *_chPtr, int _frameType, c
 	return 0;
 }
 
-int main()
+void usage(char const* progName) 
 {
+  printf("Usage: %s <rtsp-url> \n", progName);
+}
+
+int main(int argc, char** argv)
+{
+	// We need at least one "rtsp://" URL argument:
+	if (argc < 2) 
+	{
+		usage(argv[0]);
+		getchar();
+		return 1;
+	}
+
+	sprintf(fRTSPURL, "%s", argv[1]);
+
 	//创建RTSPSource
 	EasyRTSP_Init(&fRTSPHandle);
 
@@ -103,7 +118,7 @@ int main()
 	unsigned int mediaType = EASY_SDK_VIDEO_FRAME_FLAG | EASY_SDK_AUDIO_FRAME_FLAG;
 
 	// 打开RTSP流
-	EasyRTSP_OpenStream(fRTSPHandle, 0, RTSPURL, RTP_OVER_TCP, mediaType, 0, 0, NULL, 1000, 0);
+	EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, RTP_OVER_TCP, mediaType, 0, 0, NULL, 1000, 0);
 
 	getchar();
    
