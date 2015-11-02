@@ -60,8 +60,6 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, int *_chPtr, int _frameType, c
 			printf("Get PCMA Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 		else if (_frameInfo->codec == EASY_SDK_AUDIO_CODEC_G711U)
 			printf("Get PCMU Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
-		else if (_frameInfo->codec == EASY_SDK_AUDIO_CODEC_G726)
-			printf("Get G726 Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 	}
 	else if (_frameType == EASY_SDK_EVENT_FRAME_FLAG)//回调连接状态事件
 	{
