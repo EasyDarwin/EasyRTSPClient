@@ -3,7 +3,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerEnvironment>path=%path%;..\Lib</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>"rtsp://admin:admin@wellsen.f3322.org/22"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>"rtsp://admin:admin@anfengde.f3322.org/22"</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerEnvironment>path=%path%;..\Lib</LocalDebuggerEnvironment>
