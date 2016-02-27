@@ -63,10 +63,13 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, int *_chPtr, int _frameType, c
 	}
 	else if (_frameType == EASY_SDK_EVENT_FRAME_FLAG)//回调连接状态事件
 	{
+		// 初始连接或者连接失败再次进行重连
 		if (NULL == _pBuf && NULL == _frameInfo)
 		{
 			printf("Connecting:%s ...\n", fRTSPURL);
 		}
+
+		// 有丢帧情况!
 		else if (NULL!=_frameInfo && _frameInfo->type==0xF1)
 		{
 			printf("Lose Packet:%s ...\n", fRTSPURL);
