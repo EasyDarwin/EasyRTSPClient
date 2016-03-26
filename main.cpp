@@ -17,7 +17,6 @@
 char fRTSPURL[256] = { 0 };
 
 Easy_RTSP_Handle fRTSPHandle = 0;
-FILE* f264;
 
 /* RTSPClient数据回调 */
 int Easy_APICALL __RTSPClientCallBack( int _chid, int *_chPtr, int _frameType, char *_pBuf, RTSP_FRAME_INFO* _frameInfo)
@@ -63,7 +62,6 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, int *_chPtr, int _frameType, c
 	}
 	else if (_frameType == EASY_SDK_AUDIO_FRAME_FLAG)//回调音频数据
 	{
-		::fwrite(_pBuf, 1, _frameInfo->length, f264);
 		if (_frameInfo->codec == EASY_SDK_AUDIO_CODEC_AAC)
 			printf("Get AAC Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 		else if (_frameInfo->codec == EASY_SDK_AUDIO_CODEC_G711A)
@@ -143,8 +141,6 @@ int main(int argc, char** argv)
 		return -1;
 
 	sprintf(fRTSPURL, "%s", argv[1]);
-
-	f264 = ::fopen("./264.264","wb");
 
 	//创建RTSPSource
 	EasyRTSP_Init(&fRTSPHandle);
