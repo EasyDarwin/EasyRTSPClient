@@ -8,9 +8,16 @@
 #include <string.h>
 #include "EasyRTSPClientAPI.h"
 
+#ifdef _WIN32
+#define KEY "6A59754D6A3469576B5A73413066565771516F6E3375314659584E35556C525455454E73615756756443356C6547557056752B7141506A655A57467A65513D3D"
+#else
+#define KEY "6A59754D6A3469576B5A73413066565771516F6E3376466C59584E35636E527A63474E736157567564434E5737366F412B4E356C59584E35"
+#endif
+
 char fRTSPURL[256] = { 0 };
 
 Easy_RTSP_Handle fRTSPHandle = 0;
+FILE* f264;
 
 /* RTSPClient数据回调 */
 int Easy_APICALL __RTSPClientCallBack( int _chid, int *_chPtr, int _frameType, char *_pBuf, RTSP_FRAME_INFO* _frameInfo)
@@ -19,6 +26,8 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, int *_chPtr, int _frameType, c
 	{
 		if (_frameInfo->codec == EASY_SDK_VIDEO_CODEC_H264)
 		{
+
+			/*::fwrite(_pBuf, 1, _frameInfo->length, f264);*/
 			/* 
 				每一个I关键帧都是SPS+PPS+IDR的组合
 				|---------------------|----------------|-------------------------------------|
@@ -54,6 +63,7 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, int *_chPtr, int _frameType, c
 	}
 	else if (_frameType == EASY_SDK_AUDIO_FRAME_FLAG)//回调音频数据
 	{
+		::fwrite(_pBuf, 1, _frameInfo->length, f264);
 		if (_frameInfo->codec == EASY_SDK_AUDIO_CODEC_AAC)
 			printf("Get AAC Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 		else if (_frameInfo->codec == EASY_SDK_AUDIO_CODEC_G711A)
@@ -96,6 +106,7 @@ void usage(char const* progName)
 
 int main(int argc, char** argv)
 {
+	int isActivated = 0;
 	// We need at least one "rtsp://" URL argument:
 	if (argc < 2) 
 	{
@@ -105,7 +116,35 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
+	isActivated = EasyRTSP_Activate(KEY);
+	switch(isActivated)
+	{
+	case EASY_ACTIVATE_INVALID_KEY:
+		printf("KEY is EASY_ACTIVATE_INVALID_KEY!\n");
+		break;
+	case EASY_ACTIVATE_TIME_ERR:
+		printf("KEY is EASY_ACTIVATE_TIME_ERR!\n");
+		break;
+	case EASY_ACTIVATE_PROCESS_NAME_LEN_ERR:
+		printf("KEY is EASY_ACTIVATE_PROCESS_NAME_LEN_ERR!\n");
+		break;
+	case EASY_ACTIVATE_PROCESS_NAME_ERR:
+		printf("KEY is EASY_ACTIVATE_PROCESS_NAME_ERR!\n");
+		break;
+	case EASY_ACTIVATE_VALIDITY_PERIOD_ERR:
+		printf("KEY is EASY_ACTIVATE_VALIDITY_PERIOD_ERR!\n");
+		break;
+	case EASY_ACTIVATE_SUCCESS:
+		printf("KEY is EASY_ACTIVATE_SUCCESS!\n");
+		break;
+	}
+
+	if(EASY_ACTIVATE_SUCCESS != isActivated)
+		return -1;
+
 	sprintf(fRTSPURL, "%s", argv[1]);
+
+	f264 = ::fopen("./264.264","wb");
 
 	//创建RTSPSource
 	EasyRTSP_Init(&fRTSPHandle);
@@ -120,7 +159,7 @@ int main(int argc, char** argv)
 	unsigned int mediaType = EASY_SDK_VIDEO_FRAME_FLAG | EASY_SDK_AUDIO_FRAME_FLAG;
 
 	// 打开RTSP流
-	EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, RTP_OVER_TCP, mediaType, 0, 0, NULL, 1000, 0);
+	EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, RTP_OVER_TCP, mediaType, 0, 0, NULL, 1000, 0, 1);
 
 	printf("Press Enter exit...\n");
 	getchar();
