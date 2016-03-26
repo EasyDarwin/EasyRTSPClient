@@ -21,7 +21,7 @@ EasyRTSPClient是EasyDarwin开源流媒体团队成员Gavin开发、提供的一
 - **我们同时提供Windows、Linux、ARM版本的libEasyRTSPClient库**：arm版本请将交叉编译工具链发送至[support@easydarwin.org](mailto:support@easydarwin.org "EasyDarwin mail")，我们会帮您具体编译
 
 ## 调用流程 ##
-![](http://www.easydarwin.org/skin/easydarwin/images/easyrtspclient.png)
+![](http://www.easydarwin.org/skin/easydarwin/images/easyrtspclient20160326.png)
 
 
 ## 设计方法 ##
