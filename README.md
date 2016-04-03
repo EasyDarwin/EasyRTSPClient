@@ -16,9 +16,9 @@ EasyRTSPClient是EasyDarwin开源流媒体团队成员Gavin开发、提供的一
 		./Buildit
 
 
-- **EasyDarwin**：您也可以参考EasyDarwin中EasyHLSSession(HLS直播模块)、EasyRelaySession(RTSP转发模块)对EasyRTSPClient库的调用方法，详细请看：[https://github.com/EasyDarwin/EasyDarwin](https://github.com/EasyDarwin/EasyDarwin "EasyDarwin")；
+- **EasyDarwin**：您也可以参考EasyDarwin中EasyHLSModule(HLS直播模块)、EasyRelayModule(RTSP转发模块)对EasyRTSPClient库的调用方法，详细请看：[https://github.com/EasyDarwin/EasyDarwin](https://github.com/EasyDarwin/EasyDarwin "EasyDarwin")；
 
-- **我们同时提供Windows、Linux、ARM版本的libEasyRTSPClient库**：arm版本请将交叉编译工具链发送至[support@easydarwin.org](mailto:support@easydarwin.org "EasyDarwin mail")，我们会帮您具体编译
+- **我们同时提供Windows、Linux、ARM、Android、IOS版本的libEasyRTSPClient库**：EasyRTSPClient SDK商业使用需要经过授权才能使用，商业授权方案： [http://www.easydss.com/EasyRTSPClient.html](http://www.easydss.com/EasyRTSPClient.html "EasyRTSPClient授权")；个人及非商业用途可通过邮件发送至[support@easydarwin.org](mailto:support@easydarwin.org "EasyDarwin support mail")进行申请，注意ARM版本需要附上交叉编译工具链，我们会帮您具体编译；
 
 ## 调用流程 ##
 ![](http://www.easydarwin.org/skin/easydarwin/images/easyrtspclient20160326.png)
