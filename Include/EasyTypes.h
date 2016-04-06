@@ -96,6 +96,7 @@ typedef enum __EASY_ACTIVATE_ERR_CODE_ENUM
 #define EASY_SDK_VIDEO_FRAME_I		0x01		/* I帧 */
 #define EASY_SDK_VIDEO_FRAME_P		0x02		/* P帧 */
 #define EASY_SDK_VIDEO_FRAME_B		0x03		/* B帧 */
+#define EASY_SDK_VIDEO_FRAME_J		0x04		/* JPEG */
 
 /* 连接类型 */
 typedef enum __RTP_CONNECT_TYPE
