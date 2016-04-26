@@ -52,6 +52,7 @@ EasyRTSPClient可以回调出多种类型的数据：
 
 EASY\_SDK\_VIDEO\_FRAME\_FLAG数据可支持多种视频格式：
 		
+	#define EASY_SDK_VIDEO_CODEC_H265			/* H265  */
 	#define EASY_SDK_VIDEO_CODEC_H264			/* H264  */
 	#define	EASY_SDK_VIDEO_CODEC_MJPEG			/* MJPEG */
 	#define	EASY_SDK_VIDEO_CODEC_MPEG4			/* MPEG4 */
