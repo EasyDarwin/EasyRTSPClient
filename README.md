@@ -28,6 +28,7 @@ EasyRTSPClient是EasyDarwin开源流媒体团队成员Gavin开发、提供的一
 	<tr><td>Linux</td><td>x64</td><td>./Lib/x64/</td></tr>
 	<tr><td>海思</td><td>arm-hisiv100-linux</td><td>./Lib/hisiv100/</td></tr>
 	<tr><td>海思</td><td>arm-hisiv200-linux</td><td>./Lib/hisiv200/</td></tr>
+	<tr><td>海思</td><td>arm-hisiv300-linux</td><td>./Lib/hisiv300/</td></tr>
 	<tr><td>海思</td><td>arm-hisiv400-linux</td><td>./Lib/hisiv400/</td></tr>
 	<tr><td>Android</td><td>armeabi</td><td>EasyPlayer libEasyRTSPClient.so</td></tr>
 	<tr><td colspan="3"><center>邮件获取更多平台版本</center></td></tr>
