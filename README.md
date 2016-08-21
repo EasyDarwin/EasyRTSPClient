@@ -1,6 +1,6 @@
 # EasyRTSPClient SDK#
 
-EasyRTSPClient是EasyDarwin开源流媒体团队成员Gavin开发、提供的一套非常稳定、易用、支持重连的RTSPClient工具，SDK形式提供，接口调用非常简单，再也不用像调用live555那样处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY的复杂流程，担心内存释放的问题了，全平台支持（包括Windows/Linux 32&64，ARM各平台，Android，IOS），接口简单且成熟稳定！
+EasyRTSPClient是EasyDarwin开源流媒体团队开发、提供的一套非常稳定、易用、支持重连的RTSPClient工具，SDK形式提供，接口调用非常简单，再也不用像调用live555那样处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY的复杂流程，担心内存释放的问题了，全平台支持（包括Windows/Linux 32&64，ARM各平台，Android，IOS），接口简单且成熟稳定！
 
 ## 调用示例 ##
 
@@ -87,8 +87,6 @@ EASY\_SDK\_AUDIO\_FRAME\_FLAG数据可支持多种音频格式：
 邮件：[support@easydarwin.org](mailto:support@easydarwin.org) 
 
 WEB：[www.EasyDarwin.org](http://www.easydarwin.org)
-
-Author：[Gavin@EasyDarwin.org](mailto:Gavin@EasyDarwin.org "Gavin@EasyDarwin.org")
 
 QQ交流群：[465901074](http://jq.qq.com/?_wv=1027&k=2G045mo "EasyRTSPClient")
 
