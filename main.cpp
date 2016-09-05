@@ -80,10 +80,18 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 		}
 
 		// 有丢帧情况!
-		else if (NULL!=_frameInfo && _frameInfo->type==0xF1)
+		else if (NULL != _frameInfo && _frameInfo->type == 0xF1)
 		{
 			printf("Lose Packet:%s ...\n", fRTSPURL);
 		}
+
+		// 连接断开
+		else if (NULL != _frameInfo && _frameInfo->codec == 0x01)
+		{
+			printf("Disconnect:%s：%d ...\n", fRTSPURL, EasyRTSP_GetErrCode());
+		}
+
+
 	}
 	else if (_frameType == EASY_SDK_MEDIA_INFO_FLAG)//回调出媒体信息
 	{
