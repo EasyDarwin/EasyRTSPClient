@@ -86,9 +86,14 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 		}
 
 		// 连接断开
-		else if (NULL != _frameInfo && _frameInfo->codec == 0x01)
+		else if (NULL != _frameInfo && _frameInfo->codec == EASY_SDK_EVENT_CODEC_ERROR)
 		{
-			printf("Disconnect:%s：%d ...\n", fRTSPURL, EasyRTSP_GetErrCode());
+			printf("Error:%s：%d ...\n", fRTSPURL, EasyRTSP_GetErrCode(fRTSPHandle));
+		}
+
+		else if (NULL != _frameInfo && _frameInfo->codec == EASY_SDK_EVENT_CODEC_EXIT)
+		{
+			printf("Exit:%s：%d ...\n", fRTSPURL, EasyRTSP_GetErrCode(fRTSPHandle));
 		}
 
 
@@ -174,7 +179,7 @@ int main(int argc, char** argv)
 	unsigned int mediaType = EASY_SDK_VIDEO_FRAME_FLAG | EASY_SDK_AUDIO_FRAME_FLAG;
 
 	// 打开RTSP流
-	EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, EASY_RTP_OVER_TCP, mediaType, 0, 0, NULL, 1000, 0, 0, 0);
+	EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, EASY_RTP_OVER_TCP, mediaType, 0, 0, NULL, 1000, 0, 0, 3);
 
 	printf("Press Enter exit...\n");
 	getchar();
