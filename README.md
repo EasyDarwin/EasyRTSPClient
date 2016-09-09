@@ -38,7 +38,7 @@ EasyRTSPClient是EasyDarwin开源流媒体团队开发、提供的一套非常�
 	</table>
 
 ## 调用流程 ##
-![](http://www.easydarwin.org/skin/easydarwin/images/easyrtspclient20160326.png)
+![](http://www.easydarwin.org/skin/easydarwin/images/easyrtspclient20160909.gif)
 
 
 ## 设计方法 ##
