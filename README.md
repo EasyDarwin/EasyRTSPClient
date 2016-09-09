@@ -16,7 +16,9 @@ EasyRTSPClient是EasyDarwin开源流媒体团队开发、提供的一套非常�
 		./Buildit
 
 
-- **EasyDarwin**：您也可以参考EasyDarwin中EasyHLSModule(HLS直播模块)、EasyRelayModule(RTSP转发模块)对EasyRTSPClient库的调用方法，详细请看：[https://github.com/EasyDarwin/EasyDarwin](https://github.com/EasyDarwin/EasyDarwin "EasyDarwin")；
+- **EasyPlayer调用**：EasyPlayer是由EasyDarwin开源团队开发和维护的一个RTSP播放器项目，目前支持Windows(支持多窗口、包含ActiveX，npAPI Web插件)、Android平台，iOS平台，EasyRTSPClient作为其RTSP/RTP部分组件，为EasyPlayer提供稳定可靠、高兼容性的数据连接；
+
+- **EasyClient客户端**：EasyClient是EasyDarwin开源流媒体云平台的客户端实现，包含：Windows、Android、iOS三个部分，EasyRTSPClient为EasyClient提供RTSP/RTP/RTCP协议支撑；
 
 - **我们同时提供Windows、Linux、ARM、Android、IOS版本的libEasyRTSPClient库**：EasyRTSPClient SDK商业使用需要经过授权才能使用，商业授权方案： [http://www.easydss.com/EasyRTSPClient.html](http://www.easydss.com/EasyRTSPClient.html "EasyRTSPClient授权")；个人及非商业用途可通过邮件发送至[support@easydarwin.org](mailto:support@easydarwin.org "EasyDarwin support mail")进行申请，注意ARM版本需要附上交叉编译工具链，我们会帮您具体编译，目前Github已经更新支持的平台有：
 
