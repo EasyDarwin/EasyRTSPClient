@@ -73,30 +73,23 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 	}
 	else if (_frameType == EASY_SDK_EVENT_FRAME_FLAG)//回调连接状态事件
 	{
-		// 初始连接或者连接失败再次进行重连
+		// EasyRTSPClient开始进行连接，建立EasyRTSPClient连接线程
 		if (NULL == _pBuf && NULL == _frameInfo)
 		{
 			printf("Connecting:%s ...\n", fRTSPURL);
 		}
 
-		// 有丢帧情况!
-		else if (NULL != _frameInfo && _frameInfo->type == 0xF1)
-		{
-			printf("Lose Packet:%s ...\n", fRTSPURL);
-		}
-
-		// 连接断开
+		// EasyRTSPClient RTSPClient连接错误，错误码通过EasyRTSP_GetErrCode()接口获取，比如404
 		else if (NULL != _frameInfo && _frameInfo->codec == EASY_SDK_EVENT_CODEC_ERROR)
 		{
 			printf("Error:%s：%d ...\n", fRTSPURL, EasyRTSP_GetErrCode(fRTSPHandle));
 		}
 
+		// EasyRTSPClient连接线程退出，此时上层应该停止相关调用，复位连接按钮等状态
 		else if (NULL != _frameInfo && _frameInfo->codec == EASY_SDK_EVENT_CODEC_EXIT)
 		{
-			printf("Exit:%s：%d ...\n", fRTSPURL, EasyRTSP_GetErrCode(fRTSPHandle));
+			printf("Exit:%s,Error:%d ...\n", fRTSPURL, EasyRTSP_GetErrCode(fRTSPHandle));
 		}
-
-
 	}
 	else if (_frameType == EASY_SDK_MEDIA_INFO_FLAG)//回调出媒体信息
 	{
