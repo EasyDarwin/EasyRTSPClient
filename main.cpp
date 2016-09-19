@@ -14,6 +14,9 @@
 #define KEY "6A59754D6A354F576B597141736E56587149704B7066466C59584E35636E527A63474E736157567564434E58444661672F535867523246326157346D516D466962334E68514449774D545A4659584E355247467964326C75564756686257566863336B3D"
 #endif
 
+FILE* fVideo = NULL;
+FILE* fAudio = NULL;
+
 char fRTSPURL[256] = { 0 };
 
 Easy_RTSP_Handle fRTSPHandle = 0;
@@ -25,8 +28,10 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 	{
 		if (_frameInfo->codec == EASY_SDK_VIDEO_CODEC_H264)
 		{
+			if(fVideo == NULL)
+				fVideo = ::fopen("./video.H264","wb");
 
-			/*::fwrite(_pBuf, 1, _frameInfo->length, f264);*/
+			::fwrite(_pBuf, 1, _frameInfo->length, fVideo);
 			/* 
 				每一个I关键帧都是SPS+PPS+IDR的组合
 				|---------------------|----------------|-------------------------------------|
@@ -56,20 +61,51 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 			}
 		}
 		else if (_frameInfo->codec == EASY_SDK_VIDEO_CODEC_MJPEG)
+		{
+			if(fVideo == NULL)
+				fVideo = ::fopen("./video.mjpeg","wb");
+
+			::fwrite(_pBuf, 1, _frameInfo->length, fVideo);
+
 			printf("Get MJPEG Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
+		}
 		else if (_frameInfo->codec == EASY_SDK_VIDEO_CODEC_MPEG4)
+		{
+			if(fVideo == NULL)
+				fVideo = ::fopen("./video.mpeg4","wb");
+
+			::fwrite(_pBuf, 1, _frameInfo->length, fVideo);
+
 			printf("Get MPEG4 Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
+		}
 	}
 	else if (_frameType == EASY_SDK_AUDIO_FRAME_FLAG)//回调音频数据
 	{
 		if (_frameInfo->codec == EASY_SDK_AUDIO_CODEC_AAC)
+		{
+			if(fAudio == NULL)
+				fAudio = ::fopen("./audio.aac","wb");
 			printf("Get AAC Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
+		}
 		else if (_frameInfo->codec == EASY_SDK_AUDIO_CODEC_G711A)
+		{
+			if(fAudio == NULL)
+				fAudio = ::fopen("./audio.pcma","wb");
 			printf("Get PCMA Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
+		}
 		else if (_frameInfo->codec == EASY_SDK_AUDIO_CODEC_G711U)
+		{
+			if(fAudio == NULL)
+				fAudio = ::fopen("./audio.pcmu","wb");
 			printf("Get PCMU Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
+		}
 		else if (_frameInfo->codec == EASY_SDK_AUDIO_CODEC_G726)
+		{
+			if(fAudio == NULL)
+				fAudio = ::fopen("./record.g726","wb");
 			printf("Get G.726 Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
+		}
+		::fwrite(_pBuf, 1, _frameInfo->length, fAudio);
 	}
 	else if (_frameType == EASY_SDK_EVENT_FRAME_FLAG)//回调连接状态事件
 	{
