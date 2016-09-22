@@ -118,7 +118,7 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 		// EasyRTSPClient RTSPClient连接错误，错误码通过EasyRTSP_GetErrCode()接口获取，比如404
 		else if (NULL != _frameInfo && _frameInfo->codec == EASY_SDK_EVENT_CODEC_ERROR)
 		{
-			printf("Error:%s：%d ...\n", fRTSPURL, EasyRTSP_GetErrCode(fRTSPHandle));
+			printf("Error:%s：%d :%s ...\n", fRTSPURL, EasyRTSP_GetErrCode(fRTSPHandle), _pBuf?_pBuf:"null" );
 		}
 
 		// EasyRTSPClient连接线程退出，此时上层应该停止相关调用，复位连接按钮等状态
