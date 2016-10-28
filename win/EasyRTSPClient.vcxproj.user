@@ -3,7 +3,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerEnvironment>path=%path%;..\Lib</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>"rtsp://127.0.0.1/live.sdp"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>"rtsp://121.40.50.44:554/afd.sdp"</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerEnvironment>path=%path%;..\Lib</LocalDebuggerEnvironment>

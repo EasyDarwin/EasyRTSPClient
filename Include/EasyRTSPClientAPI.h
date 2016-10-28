@@ -9,7 +9,7 @@
 
 #include "EasyTypes.h"
 
-#define	RTSP_PROG_NAME	"EasyRTSPClient v1.16.0721"
+#define	RTSP_PROG_NAME	"EasyRTSPClient v1.16.1028"
 
 /*
 	_channelId:		通道号,暂时不用
