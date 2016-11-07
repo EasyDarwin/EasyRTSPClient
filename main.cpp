@@ -53,11 +53,11 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 				memcpy(pps, _pBuf+spsLen, ppsLen);	//PPS数据，包含00 00 00 01
 				IFrame = _pBuf + spsLen + ppsLen;	//IDR数据，包含00 00 00 01
 
-				printf("Get I H264 SPS/PPS/IDR Len:%d/%d/%d \ttimestamp:%u.%u\n", spsLen, ppsLen, iFrameLen, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
+				printf("Get I H264(%d * %d) SPS/PPS/IDR Len:%d/%d/%d \ttimestamp:%u.%u\n",_frameInfo->width, _frameInfo->height, spsLen, ppsLen, iFrameLen, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 			}
 			else if (_frameInfo->type == EASY_SDK_VIDEO_FRAME_P)
 			{
-				printf("Get P H264 Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
+				printf("Get P H264(%d * %d) Len:%d \ttimestamp:%u.%u\n",_frameInfo->width, _frameInfo->height, _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 			}
 		}
 		else if (_frameInfo->codec == EASY_SDK_VIDEO_CODEC_MJPEG)
