@@ -13,7 +13,7 @@
 
 /*
 	_channelId:		通道号,暂时不用
-	_channelPtr:	通道对应对象,用户自定义指针，用于多路回调处理
+	_channelPtr:	通道对应对象,暂时不用
 	_frameType:		EASY_SDK_VIDEO_FRAME_FLAG/EASY_SDK_AUDIO_FRAME_FLAG/EASY_SDK_EVENT_FRAME_FLAG/...	
 	_pBuf:			回调的数据部分，具体用法看Demo
 	_frameInfo:		帧结构数据
@@ -28,7 +28,11 @@ extern "C"
 	Easy_API int Easy_APICALL EasyRTSP_GetErrCode(Easy_RTSP_Handle handle);
 
 	/* 激活 */
+#ifdef ANDROID
+	Easy_API int Easy_APICALL EasyRTSP_Activate(char *license, char* userPtr);
+#else
 	Easy_API int Easy_APICALL EasyRTSP_Activate(char *license);
+#endif
 
 	/* 创建RTSPClient句柄  返回0表示成功，返回非0表示失败 */
 	Easy_API int Easy_APICALL EasyRTSP_Init(Easy_RTSP_Handle *handle);

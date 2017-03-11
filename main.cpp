@@ -6,20 +6,25 @@
 */
 #include <stdio.h>
 #include <string.h>
+#include "getopt.h"
 #include "EasyRTSPClientAPI.h"
 
 #ifdef _WIN32
-#define KEY "6A59754D6A3469576B5A7541736E56587149704B7065314659584E35556C525455454E73615756756443356C65475570567778576F50306C34456468646D6C754A6B4A68596D397A595541794D4445325257467A65555268636E6470626C526C5957316C59584E35"
-#else
-#define KEY "6A59754D6A354F576B597141736E56587149704B7066466C59584E35636E527A63474E736157567564434E58444661672F535867523246326157346D516D466962334E68514449774D545A4659584E355247467964326C75564756686257566863336B3D"
+#define KEY "79393674363469576B5A7541374D4659707A34544A65314659584E35556C525455454E73615756756443356C65475570567778576F502B6C34456468646D6C754A6B4A68596D397A595541794D4445325257467A65555268636E6470626C526C5957316C59584E35"
+#else //x86 linux
+#define KEY "7939367436354F576B597141374D4659707A34544A66466C59584E35636E527A63474E7361575675644C3558444661672F365867523246326157346D516D466962334E68514449774D545A4659584E355247467964326C75564756686257566863336B3D"
 #endif
 
 FILE* fVideo = NULL;
 FILE* fAudio = NULL;
 
-char fRTSPURL[256] = { 0 };
+char* fRTSPURL = NULL;		//rtsp source addrs
+int fTransType = 0;			//0 : TCP    1 : UDP
+bool fSaveFile = true;		//true : save file     false ： don't save
+
 
 Easy_RTSP_Handle fRTSPHandle = 0;
+
 
 /* RTSPClient数据回调 */
 int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, char *_pBuf, RTSP_FRAME_INFO* _frameInfo)
@@ -28,10 +33,17 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 	{
 		if (_frameInfo->codec == EASY_SDK_VIDEO_CODEC_H264)
 		{
-			if(fVideo == NULL)
-				fVideo = ::fopen("./video.H264","wb");
+			if(fSaveFile)
+			{
+				if(fVideo == NULL)
+				{
+					char filename[100] = {0};
+					sprintf(filename, "./video_%s.H264", fTransType?"udp":"tcp");
+					fVideo = ::fopen(filename,"wb");
+				}
 
-			::fwrite(_pBuf, 1, _frameInfo->length, fVideo);
+				::fwrite(_pBuf, 1, _frameInfo->length, fVideo);
+			}
 			/* 
 				每一个I关键帧都是SPS+PPS+IDR的组合
 				|---------------------|----------------|-------------------------------------|
@@ -62,19 +74,33 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 		}
 		else if (_frameInfo->codec == EASY_SDK_VIDEO_CODEC_MJPEG)
 		{
-			if(fVideo == NULL)
-				fVideo = ::fopen("./video.mjpeg","wb");
+			if(fSaveFile)
+			{
+				if(fVideo == NULL)
+				{
+					char filename[100] = {0};
+					sprintf(filename, "./video_%s.mjpeg", fTransType?"udp":"tcp");
+					fVideo = ::fopen(filename,"wb");
+				}
 
-			::fwrite(_pBuf, 1, _frameInfo->length, fVideo);
+				::fwrite(_pBuf, 1, _frameInfo->length, fVideo);
+			}
 
 			printf("Get MJPEG Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 		}
 		else if (_frameInfo->codec == EASY_SDK_VIDEO_CODEC_MPEG4)
 		{
-			if(fVideo == NULL)
-				fVideo = ::fopen("./video.mpeg4","wb");
+			if(fSaveFile)
+			{
+				if(fVideo == NULL)
+				{
+					char filename[100] = {0};
+					sprintf(filename, "./video_%s.mpeg4", fTransType?"udp":"tcp");
+					fVideo = ::fopen(filename,"wb");
+				}
 
-			::fwrite(_pBuf, 1, _frameInfo->length, fVideo);
+				::fwrite(_pBuf, 1, _frameInfo->length, fVideo);
+			}
 
 			printf("Get MPEG4 Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 		}
@@ -83,29 +109,60 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 	{
 		if (_frameInfo->codec == EASY_SDK_AUDIO_CODEC_AAC)
 		{
-			if(fAudio == NULL)
-				fAudio = ::fopen("./audio.aac","wb");
+			if(fSaveFile)
+			{
+				if(fAudio == NULL)
+				{
+					char filename[100] = {0};
+					sprintf(filename, "./audio_%s.aac", fTransType?"udp":"tcp");
+					fAudio = ::fopen(filename,"wb");
+				}
+			}
 			printf("Get AAC Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 		}
 		else if (_frameInfo->codec == EASY_SDK_AUDIO_CODEC_G711A)
 		{
-			if(fAudio == NULL)
-				fAudio = ::fopen("./audio.pcma","wb");
+			if(fSaveFile)
+			{
+				if(fAudio == NULL)
+				{
+					char filename[100] = {0};
+					sprintf(filename, "./audio_%s.pcma", fTransType?"udp":"tcp");
+					fAudio = ::fopen(filename,"wb");
+				}
+			}
 			printf("Get PCMA Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 		}
 		else if (_frameInfo->codec == EASY_SDK_AUDIO_CODEC_G711U)
 		{
-			if(fAudio == NULL)
-				fAudio = ::fopen("./audio.pcmu","wb");
+			if(fSaveFile)
+			{
+				if(fAudio == NULL)
+				{
+					char filename[100] = {0};
+					sprintf(filename, "./audio_%s.pcmu", fTransType?"udp":"tcp");
+					fAudio = ::fopen(filename,"wb");
+				}
+			}
 			printf("Get PCMU Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 		}
 		else if (_frameInfo->codec == EASY_SDK_AUDIO_CODEC_G726)
 		{
-			if(fAudio == NULL)
-				fAudio = ::fopen("./record.g726","wb");
+			if(fSaveFile)
+			{
+				if(fAudio == NULL)
+				{
+					char filename[100] = {0};
+					sprintf(filename, "./audio_%s.g726", fTransType?"udp":"tcp");
+					fAudio = ::fopen(filename,"wb");
+				}
+			}
+
 			printf("Get G.726 Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 		}
-		::fwrite(_pBuf, 1, _frameInfo->length, fAudio);
+
+		if(fSaveFile)
+			::fwrite(_pBuf, 1, _frameInfo->length, fAudio);
 	}
 	else if (_frameType == EASY_SDK_EVENT_FRAME_FLAG)//回调连接状态事件
 	{
@@ -146,16 +203,65 @@ void usage(char const* progName)
   printf("Usage: %s <rtsp-url> \n", progName);
 }
 
+void PrintUsage(char const* progName)
+{
+	printf("Usage:\n");
+	printf("--------------------------------------------------------------\n");
+	printf("%s -d <rtsp-url>[ -m <transport-mode> -s <save-file>]\n", progName);
+	printf("Help Mode:   %s -h \n", progName );
+	printf("rtsp-url : source rtsp address\ntransport-mode : tcp or udp, default is tcp\nsave-file : yes or no, default is yes\n");
+	printf("For example: %s -d rtsp://admin:admin@192.168.2.100/11 -m tcp -s yes\n", progName); 
+	printf("--------------------------------------------------------------\n");
+}
+
 int main(int argc, char** argv)
 {
 	int isActivated = 0;
+	int ch;
 	// We need at least one "rtsp://" URL argument:
 	if (argc < 2) 
 	{
-		usage(argv[0]);
+		PrintUsage(argv[0]);
 		printf("Press Enter exit...\n");
 		getchar();
 		return 1;
+	}
+
+	while ((ch = getopt(argc,argv, "h:d:m:s:")) != EOF) 
+	{
+		switch(ch)
+		{
+		case 'h':
+			PrintUsage(argv[0]);
+			return 0;
+			break;
+		case 'd':
+			fRTSPURL = optarg;
+			break;
+		case 'm':
+			if((strlen(optarg) == 3) && ((0 == strcmp(optarg, "UDP"))|| (0 == strcmp(optarg, "udp"))))
+			{
+				fTransType = 1;
+			}
+			else
+			{
+				fTransType = 0;//默认tcp
+			}
+
+			break;
+		case 's':
+			if((strlen(optarg) == 2) && ((0 == strcmp(optarg, "NO"))|| (0 == strcmp(optarg, "no"))))
+			{
+				fSaveFile = false;
+			}
+			else
+			{
+				fSaveFile = true;//默认存文件
+			}
+			break;
+		default:
+			break;
+		}
 	}
 
 	isActivated = EasyRTSP_Activate(KEY);
@@ -193,8 +299,6 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
-	sprintf(fRTSPURL, "%s", argv[1]);
-
 	//创建RTSPSource
 	EasyRTSP_Init(&fRTSPHandle);
 
@@ -208,7 +312,10 @@ int main(int argc, char** argv)
 	unsigned int mediaType = EASY_SDK_VIDEO_FRAME_FLAG | EASY_SDK_AUDIO_FRAME_FLAG;
 
 	// 打开RTSP流
-	EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, EASY_RTP_OVER_TCP, mediaType, "admin", "admin", NULL, 1000, 0, 0x01, 3);
+	if(fTransType == 0)
+		EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, EASY_RTP_OVER_TCP, mediaType, "admin", "admin", NULL, 1000, 0, 0x01, 3);
+	else
+		EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, EASY_RTP_OVER_UDP, mediaType, "admin", "admin", NULL, 1000, 0, 0x01, 3);
 
 	printf("Press Enter exit...\n");
 	getchar();
