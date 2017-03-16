@@ -1,6 +1,6 @@
 # EasyRTSPClient SDK#
 
-EasyRTSPClient是EasyDarwin开源流媒体团队开发、提供的一套非常稳定、易用、支持重连的RTSPClient工具，SDK形式提供，接口调用非常简单，再也不用像调用live555那样处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY的复杂流程，担心内存释放的问题了，全平台支持（包括Windows/Linux 32&64，ARM各平台，Android，IOS），接口简单且成熟稳定！
+EasyRTSPClient是EasyDarwin开源流媒体团队开发、提供的一套非常稳定、易用、支持重连的RTSPClient工具，SDK形式提供，接口调用非常简单，再也不用像调用live555那样处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY的复杂流程，担心内存释放的问题了，全平台支持（包括Windows/Linux 32&64，ARM各平台，Android，iOS），接口简单且成熟稳定！
 
 ## 调用示例 ##
 
@@ -14,6 +14,17 @@ EasyRTSPClient是EasyDarwin开源流媒体团队开发、提供的一套非常�
 		
 		chmod +x ./Buildit
 		./Buildit
+
+	Usage，
+		
+		--------------------------------------------------------------
+		EasyRTSPClient.exe -d <rtsp-url>[ -m <transport-mode> -s <save-file>]
+		Help Mode:   EasyRTSPClient.exe -h
+		rtsp-url : source rtsp address
+		transport-mode : tcp or udp, default is tcp
+		save-file : yes or no, default is yes
+		For example: EasyRTSPClient.exe -d rtsp://admin:admin@192.168.2.100/11 -m tcp -s yes
+		--------------------------------------------------------------
 
 
 - **EasyPlayer调用**：EasyPlayer是由EasyDarwin开源团队开发和维护的一个RTSP播放器项目，目前支持Windows(支持多窗口、包含ActiveX，npAPI Web插件)、Android平台，iOS平台，EasyRTSPClient作为其RTSP/RTP部分组件，为EasyPlayer提供稳定可靠、高兼容性的数据连接；
