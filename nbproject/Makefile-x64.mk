@@ -60,7 +60,7 @@ LDLIBSOPTIONS=-LLib/${CND_CONF}
 
 ${CND_CONF}/easyrtspclient: ${OBJECTFILES}
 	${MKDIR} -p ${CND_CONF}
-	${LINK.cc} -o ${CND_CONF}/easyrtspclient ${OBJECTFILES} ${LDLIBSOPTIONS} -leasyrtspclient -lpthread
+	${LINK.cc} -o ${CND_CONF}/easyrtspclient ${OBJECTFILES} ${LDLIBSOPTIONS}  -lrt -leasyrtspclient -lpthread
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
