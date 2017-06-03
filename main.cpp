@@ -74,6 +74,10 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 				printf("Get P H264(%d * %d) Len:%d \ttimestamp:%u.%u\n",_frameInfo->width, _frameInfo->height, _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 			}
 		}
+		else if(_frameInfo->codec == EASY_SDK_VIDEO_CODEC_H265)
+		{
+			printf("Get H265(%d * %d) Len:%d \ttimestamp:%u.%u\n",_frameInfo->width, _frameInfo->height, _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
+		}
 		else if (_frameInfo->codec == EASY_SDK_VIDEO_CODEC_MJPEG)
 		{
 			if(fSaveFile)
