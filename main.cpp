@@ -324,11 +324,11 @@ int main(int argc, char** argv)
 	// 设置接收音频、视频数据
 	unsigned int mediaType = EASY_SDK_VIDEO_FRAME_FLAG | EASY_SDK_AUDIO_FRAME_FLAG;
 
-	// 打开RTSP流
+	// 打开RTSP流，如果fRTSPURL中已经携带了用户名密码，那么_username和_password两个参数就不用填了，则或者同时填一定要保持一致
 	if(fTransType == 0)
-		EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, EASY_RTP_OVER_TCP, mediaType, "admin", "admin", NULL, 1000, 0, 0x01, 3);
+		EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, EASY_RTP_OVER_TCP, mediaType, NULL, NULL, NULL, 1000, 0, 0x01, 3);
 	else
-		EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, EASY_RTP_OVER_UDP, mediaType, "admin", "admin", NULL, 1000, 0, 0x01, 3);
+		EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, EASY_RTP_OVER_UDP, mediaType, NULL, NULL, NULL, 1000, 0, 0x01, 3);
 
 	printf("Press Enter exit...\n");
 	getchar();
