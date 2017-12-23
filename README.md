@@ -31,8 +31,6 @@ EasyRTSPClient是EasyDarwin开源流媒体团队开发、提供的一套非常�
 
 - **EasyClient客户端**：EasyClient是EasyDarwin开源流媒体云平台的客户端实现，包含：Windows、Android、iOS三个部分，EasyRTSPClient为EasyClient提供RTSP/RTP/RTCP协议支撑；
 
-- **我们同时提供Windows、Linux、ARM、Android、IOS版本的EasyRTSPClient库**：EasyRTSPClient SDK商业使用需要经过授权才能永久使用，商业授权方案可以邮件发送至[support@easydarwin.org](mailto:support@easydarwin.org "EasyDarwin support mail")或者通过电话Tel：**13718530929** 进行更深入的技术与合作咨询；
-
 	<table>
 	<tr><td><b>支持平台</b></td><td><b>芯片</b></td><td><b>目录位置</b></td></tr>
 	<tr><td>Windows</td><td>x86</td><td>./Lib/</td></tr>
@@ -96,14 +94,25 @@ EASY\_SDK\_AUDIO\_FRAME\_FLAG数据可支持多种音频格式：
 	#define EASY_SDK_AUDIO_CODEC_G726			/* G726 */
 
 
+## 技术支持 ##
+
+- 邮件：[support@easydarwin.org](mailto:support@easydarwin.org) 
+
+- Tel：13718530929
+
+- QQ交流群：[544917793](http://jq.qq.com/?_wv=1027&k=2IDkJId "EasyPlayer")
+
+> **我们同时提供Windows、Linux、ARM、Android、IOS版本的EasyRTSPClient库**：EasyRTSPClient SDK商业使用需要经过授权才能永久使用，商业授权方案可以通过以上渠道进行更深入的技术与合作咨询；
+
+
 ## 获取更多信息 ##
 
-邮件：[support@easydarwin.org](mailto:support@easydarwin.org) 
+**EasyDarwin**开源流媒体服务器：[www.EasyDarwin.org](http://www.easydarwin.org)
 
-WEB：[www.EasyDarwin.org](http://www.easydarwin.org)
+**EasyDSS**商用流媒体解决方案：[www.EasyDSS.com](http://www.easydss.com)
 
-QQ交流群：[465901074](http://jq.qq.com/?_wv=1027&k=2G045mo "EasyRTSPClient")
+**EasyNVR**无插件直播方案：[www.EasyNVR.com](http://www.easynvr.com)
 
-Copyright &copy; EasyDarwin.org 2012-2017
+Copyright &copy; EasyDarwin Team 2012-2017
 
 ![EasyDarwin](http://www.easydarwin.org/skin/easydarwin/images/wx_qrcode.jpg)
