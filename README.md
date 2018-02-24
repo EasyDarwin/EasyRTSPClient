@@ -1,6 +1,6 @@
 # EasyRTSPClient SDK #
 
-EasyRTSPClient是EasyDarwin开源流媒体团队开发、提供的一套非常稳定、易用、支持重连的RTSPClient工具，SDK形式提供，接口调用非常简单，再也不用像调用live555那样处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY的复杂流程，担心内存释放的问题了，全平台支持（包括Windows/Linux 32&64，ARM各平台，Android，iOS），接口简单且成熟稳定！
+EasyRTSPClient是[紫鲸云](http://www.pvale.com "紫鲸云")团队开发、提供的一套非常稳定、易用、支持重连的RTSPClient工具，SDK形式提供，接口调用非常简单，再也不用像调用live555和ffmpeg那样处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY的复杂流程，担心内存释放的问题了，EasyRTSPClient全平台支持（包括Windows/Linux 32&64，ARM各种平台，Android，iOS），接口简单且成熟稳定！
 
 ## 调用示例 ##
 
@@ -102,7 +102,7 @@ EASY\_SDK\_AUDIO\_FRAME\_FLAG数据可支持多种音频格式：
 
 - QQ交流群：[544917793](http://jq.qq.com/?_wv=1027&k=2IDkJId "EasyPlayer")
 
-> **我们同时提供Windows、Linux、ARM、Android、IOS版本的EasyRTSPClient库**：EasyRTSPClient SDK商业使用需要经过授权才能永久使用，商业授权方案可以通过以上渠道进行更深入的技术与合作咨询；
+> **我们同时提供Windows、Linux、ARM、Android、iOS版本的EasyRTSPClient库**：EasyRTSPClient SDK商业使用需要经过授权才能永久使用，商业授权方案可以通过以上渠道进行更深入的技术与合作咨询；
 
 
 ## 获取更多信息 ##
@@ -113,6 +113,6 @@ EASY\_SDK\_AUDIO\_FRAME\_FLAG数据可支持多种音频格式：
 
 **EasyNVR**无插件直播方案：[www.EasyNVR.com](http://www.easynvr.com)
 
-Copyright &copy; EasyDarwin Team 2012-2017
+Copyright &copy; EasyDarwin Team 2012-2018
 
 ![EasyDarwin](http://www.easydarwin.org/skin/easydarwin/images/wx_qrcode.jpg)
