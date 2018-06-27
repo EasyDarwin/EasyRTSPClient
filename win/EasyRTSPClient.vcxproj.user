@@ -3,22 +3,21 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerEnvironment>path=%path%;..\Lib</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>
-    </LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-d "rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov"</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerEnvironment>path=%path%;..\Lib</LocalDebuggerEnvironment>
+    <LocalDebuggerEnvironment>path=%path%;..\Lib\x64</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments />
+    <LocalDebuggerCommandArguments>-d "rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov"</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerEnvironment>path=%path%;..\Lib</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>"rtsp://127.0.0.1/live.sdp"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-d "rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov"</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerEnvironment>path=%path%;..\Lib\x64</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>"rtsp://127.0.0.1/live.sdp"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-d "rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov"</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>
