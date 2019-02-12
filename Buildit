@@ -14,6 +14,8 @@ elif [ "$*" = "x64" ] ; then
     make -f nbproject/Makefile-x64.mk QMAKE= SUBPROJECTS= .build-conf
 elif [ "$*" = "i386" ] ; then
     make -f nbproject/Makefile-i386.mk QMAKE= SUBPROJECTS= .build-conf
+elif [ "$*" = "hisiv100" ] ; then
+    make -f nbproject/Makefile-hisiv100.mk QMAKE= SUBPROJECTS= .build-conf
 else
     usage;
 fi
