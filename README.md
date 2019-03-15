@@ -1,6 +1,6 @@
-# EasyRTSPClient SDK #
+# EasyRTSPClient工具 #
 
-EasyRTSPClient是[紫鲸云](http://www.pvale.com "紫鲸云")团队开发、提供的一套非常稳定、易用、支持重连的RTSPClient工具，SDK形式提供，接口调用非常简单，再也不用像调用live555和ffmpeg那样处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY的复杂流程，担心内存释放的问题了，EasyRTSPClient全平台支持（包括Windows/Linux 32&64，ARM各种平台，Android，iOS），接口简单且成熟稳定！
+EasyRTSPClient是[EasyDarwin](http://www.easydarwin.org "EasyDarwin")团队开发、提供的一套非常稳定、易用、支持重连的RTSPClient工具，帮助用户非常简单地处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY的复杂流程，担心内存释放的问题了，EasyRTSPClient全平台支持（包括Windows/Linux 32&64，ARM各种平台，Android，iOS），是安防运维人员进行现场问题排查的得力帮手！
 
 ## 调用示例 ##
 
@@ -50,10 +50,6 @@ EasyRTSPClient是[紫鲸云](http://www.pvale.com "紫鲸云")团队开发、提
 ## 调用流程 ##
 ![](http://www.easydarwin.org/skin/easydarwin/images/easyrtspclient20160909.gif)
 
-
-## 设计方法 ##
-EasyRTSPClient参考live555 testProg中的testRTSPClient示例程序，将一个live555 testRTSPClient封装在一个类中，例如，我们称为Class EasyRTSPClient，在EasyRTSP_Init接口调用时，我们新建EasyRTSPClient对象、在EasyRTSP_OpenStream接口调用时，我们建立线程，装载live555的TaskScheduler->SingleStep(0)，然后再进行RTSP的具体流程，这个就可以直接用testRTSPClient的使用流程了、关闭RTSPClient，我们调用EasyRTSP_CloseStream接口，内部实现参考testRTSPClient中的shutdownStream方法，最后delete EasyRTSPClient类，这样整个过程就完整了！
-
 ### RTSPSourceCallBack数据回调说明 ###
 EasyRTSPClient可以回调出多种类型的数据：
 
@@ -93,24 +89,10 @@ EASY\_SDK\_AUDIO\_FRAME\_FLAG数据可支持多种音频格式：
 	#define EASY_SDK_AUDIO_CODEC_G711U			/* G711 ulaw*/
 	#define EASY_SDK_AUDIO_CODEC_G726			/* G726 */
 
-
-## 技术支持 ##
-
-- 邮件：[support@easydarwin.org](mailto:support@easydarwin.org) 
-
-- QQ交流群：[544917793](http://jq.qq.com/?_wv=1027&k=2IDkJId "EasyPlayer")
-
-> **我们同时提供Windows、Linux、ARM、Android、iOS版本的EasyRTSPClient库**：EasyRTSPClient SDK商业使用需要经过授权才能永久使用，商业授权方案可以通过以上渠道进行更深入的技术与合作咨询；
-
-
 ## 获取更多信息 ##
 
 **EasyDarwin**开源流媒体服务器：[www.EasyDarwin.org](http://www.easydarwin.org)
 
-**EasyDSS**商用流媒体解决方案：[www.EasyDSS.com](http://www.easydss.com)
-
-**EasyNVR**无插件直播方案：[www.EasyNVR.com](http://www.easynvr.com)
-
-Copyright &copy; EasyDarwin Team 2012-2018
+Copyright &copy; EasyDarwin Team 2012-2019
 
 ![EasyDarwin](http://www.easydarwin.org/skin/easydarwin/images/wx_qrcode.jpg)
