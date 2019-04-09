@@ -1,5 +1,5 @@
 /*
-	Copyright (c) 2013-2017 EasyDarwin.ORG.  All rights reserved.
+	Copyright (c) 2013-2019 EasyDarwin.ORG.  All rights reserved.
 	Github: https://github.com/EasyDarwin
 	WEChat: EasyDarwin
 	Website: http://www.EasyDarwin.org
@@ -11,7 +11,7 @@
 
 #ifdef _WIN32
 #define KEY "79393674363469576B5A754144474A636F35337A4A65314659584E35556C525455454E73615756756443356C65475745567778576F502B6C3430566863336C4559584A33615735555A57467453584E55614756435A584E30514449774D54686C59584E35"
-#else //linux
+#else //Linux
 #define KEY "7939367436354F576B596F41753242636F3539457066466C59584E35636E527A63474E736157567564477858444661672F36586A5257467A65555268636E6470626C526C5957314A6331526F5A554A6C633352414D6A41784F47566863336B3D"
 #endif
 
@@ -20,16 +20,14 @@ FILE* fAudio = NULL;
 
 char* fRTSPURL = NULL;		//rtsp source addrs
 int fTransType = 0;			//0 : TCP    1 : UDP
-bool fSaveFile = true;		//true : save file     false �� don't save
+bool fSaveFile = true;		//true : save file     false : don't save
 
 
-Easy_RTSP_Handle fRTSPHandle = 0;
+Easy_Handle fRTSPHandle = 0;
 
-
-/* RTSPClient���ݻص� */
-int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, char *_pBuf, RTSP_FRAME_INFO* _frameInfo)
+int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, char *_pBuf, EASY_FRAME_INFO* _frameInfo)
 {
-	if (_frameType == EASY_SDK_VIDEO_FRAME_FLAG)//�ص���Ƶ���ݣ�����00 00 00 01ͷ
+	if (_frameType == EASY_SDK_VIDEO_FRAME_FLAG)
 	{
 		if (_frameInfo->codec == EASY_SDK_VIDEO_CODEC_H264)
 		{
@@ -45,7 +43,7 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 				::fwrite(_pBuf, 1, _frameInfo->length, fVideo);
 			}
 			/* 
-				ÿһ��I�ؼ�֡����SPS+PPS+IDR�����
+				|SPS+PPS+IDR|
 				|---------------------|----------------|-------------------------------------|
 				|                     |                |                                     |
 				0-----------------reserved1--------reserved2-------------------------------length
@@ -57,13 +55,13 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 				char* IFrame = NULL;
 				unsigned int spsLen,ppsLen,iFrameLen = 0;
 
-				spsLen = _frameInfo->reserved1;							// SPS���ݳ���
-				ppsLen = _frameInfo->reserved2 - _frameInfo->reserved1;	// PPS���ݳ���
-				iFrameLen = _frameInfo->length - spsLen - ppsLen;		// IDR���ݳ���
+				spsLen = _frameInfo->reserved1;							// SPS
+				ppsLen = _frameInfo->reserved2 - _frameInfo->reserved1;	// PPS
+				iFrameLen = _frameInfo->length - spsLen - ppsLen;		// IDR
 
-				memcpy(sps, _pBuf, spsLen);			//SPS���ݣ�����00 00 00 01
-				memcpy(pps, _pBuf+spsLen, ppsLen);	//PPS���ݣ�����00 00 00 01
-				IFrame = _pBuf + spsLen + ppsLen;	//IDR���ݣ�����00 00 00 01
+				memcpy(sps, _pBuf, spsLen);			//SPS
+				memcpy(pps, _pBuf+spsLen, ppsLen);	//PPS
+				IFrame = _pBuf + spsLen + ppsLen;	//IDR
 
 				printf("Get I H264(%d * %d) SPS/PPS/IDR Len:%d/%d/%d \ttimestamp:%u.%u\n",_frameInfo->width, _frameInfo->height, spsLen, ppsLen, iFrameLen, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 			}
@@ -116,7 +114,7 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 			printf("Get MPEG4 Len:%d \ttimestamp:%u.%u\n", _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 		}
 	}
-	else if (_frameType == EASY_SDK_AUDIO_FRAME_FLAG)//�ص���Ƶ����
+	else if (_frameType == EASY_SDK_AUDIO_FRAME_FLAG)
 	{
 		if (_frameInfo->codec == EASY_SDK_AUDIO_CODEC_AAC)
 		{
@@ -175,27 +173,24 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 		if(fSaveFile)
 			::fwrite(_pBuf, 1, _frameInfo->length, fAudio);
 	}
-	else if (_frameType == EASY_SDK_EVENT_FRAME_FLAG)//�ص�����״̬�¼�
+	else if (_frameType == EASY_SDK_EVENT_FRAME_FLAG)
 	{
-		// EasyRTSPClient��ʼ�������ӣ�����EasyRTSPClient�����߳�
 		if (NULL == _pBuf && NULL == _frameInfo)
 		{
 			printf("Connecting:%s ...\n", fRTSPURL);
 		}
 
-		// EasyRTSPClient RTSPClient���Ӵ��󣬴�����ͨ��EasyRTSP_GetErrCode()�ӿڻ�ȡ������404
 		else if (NULL != _frameInfo && _frameInfo->codec == EASY_SDK_EVENT_CODEC_ERROR)
 		{
-			printf("Error:%s��%d :%s ...\n", fRTSPURL, EasyRTSP_GetErrCode(fRTSPHandle), _pBuf?_pBuf:"null" );
+			printf("Error:%s, %d :%s ...\n", fRTSPURL, EasyRTSP_GetErrCode(fRTSPHandle), _pBuf?_pBuf:"null" );
 		}
 
-		// EasyRTSPClient�����߳��˳�����ʱ�ϲ�Ӧ��ֹͣ��ص��ã���λ���Ӱ�ť��״̬
 		else if (NULL != _frameInfo && _frameInfo->codec == EASY_SDK_EVENT_CODEC_EXIT)
 		{
 			printf("Exit:%s,Error:%d ...\n", fRTSPURL, EasyRTSP_GetErrCode(fRTSPHandle));
 		}
 	}
-	else if (_frameType == EASY_SDK_MEDIA_INFO_FLAG)//�ص���ý����Ϣ
+	else if (_frameType == EASY_SDK_MEDIA_INFO_FLAG)
 	{
 		if(_pBuf != NULL)
 		{
@@ -227,7 +222,7 @@ void PrintUsage(char const* progName)
 
 int main(int argc, char** argv)
 {
-	int isActivated = 0;
+	int activeRet = 0;
 	int ch;
 	// We need at least one "rtsp://" URL argument:
 	if (argc < 2) 
@@ -256,7 +251,7 @@ int main(int argc, char** argv)
 			}
 			else
 			{
-				fTransType = 0;//Ĭ��tcp
+				fTransType = 0;
 			}
 
 			break;
@@ -267,7 +262,7 @@ int main(int argc, char** argv)
 			}
 			else
 			{
-				fSaveFile = true;//Ĭ�ϴ��ļ�
+				fSaveFile = true;
 			}
 			break;
 		default:
@@ -275,8 +270,8 @@ int main(int argc, char** argv)
 		}
 	}
 
-	isActivated = EasyRTSP_Activate(KEY);
-	switch(isActivated)
+	activeRet = EasyRTSP_Activate(KEY);
+	switch(activeRet)
 	{
 	case EASY_ACTIVATE_INVALID_KEY:
 		printf("KEY is EASY_ACTIVATE_INVALID_KEY!\n");
@@ -304,25 +299,20 @@ int main(int argc, char** argv)
 		break;
 	}
 
-	if(EASY_ACTIVATE_SUCCESS != isActivated)
+	if(activeRet < 0)
 	{
 		getchar();
 		return -1;
 	}
 
-	//����RTSPSource
 	EasyRTSP_Init(&fRTSPHandle);
 
-	// ���Ը���fRTSPHanlde�жϣ�Ҳ���Ը���EasyRTSP_Init�Ƿ񷵻�0�ж�
 	if (NULL == fRTSPHandle) return 0;
 	
-	// �������ݻص�����
 	EasyRTSP_SetCallback(fRTSPHandle, __RTSPClientCallBack);
 
-	// ���ý�����Ƶ����Ƶ����
 	unsigned int mediaType = EASY_SDK_VIDEO_FRAME_FLAG | EASY_SDK_AUDIO_FRAME_FLAG;
 
-	// ��RTSP�������fRTSPURL���Ѿ�Я�����û������룬��ô_username��_password���������Ͳ������ˣ������ͬʱ��һ��Ҫ����һ��
 	if(fTransType == 0)
 		EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, EASY_RTP_OVER_TCP, mediaType, NULL, NULL, NULL, 1000, 0, 0x01, 3);
 	else
@@ -331,10 +321,8 @@ int main(int argc, char** argv)
 	printf("Press Enter exit...\n");
 	getchar();
    
-	// �ر�RTSPClient
 	EasyRTSP_CloseStream(fRTSPHandle);
 
-	// �ͷ�RTSPHandle
 	EasyRTSP_Deinit(&fRTSPHandle);
 	fRTSPHandle = NULL;
 
