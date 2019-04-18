@@ -1,6 +1,6 @@
-# EasyRTSPClient工具 #
+# EasyRTSPClient v3.0 #
 
-EasyRTSPClient是[EasyDarwin](http://www.easydarwin.org "EasyDarwin")团队开发、提供的一套非常稳定、易用、支持重连的RTSPClient工具，帮助用户非常简单地处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY的复杂流程，担心内存释放的问题了，EasyRTSPClient全平台支持（包括Windows/Linux 32&64，ARM各种平台，Android，iOS），是安防运维人员进行现场问题排查的得力帮手！
+EasyRTSPClient是[TSINGSEE青犀](http://www.tsingsee.com "TSINGSEE青犀")开放平台开发和提供的一套非常稳定、易用、支持重连的RTSPClient组件，帮助用户非常简单地处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY的复杂流程，担心内存释放的问题了，EasyRTSPClient全平台支持（包括Windows/Linux 32&64，ARM各种平台，Android，iOS），是技术研发快速迭代的工具，也是安防运维人员进行现场问题排查的得力帮手！
 
 ## 调用示例 ##
 
@@ -91,8 +91,6 @@ EASY\_SDK\_AUDIO\_FRAME\_FLAG数据可支持多种音频格式：
 
 ## 获取更多信息 ##
 
-**EasyDarwin**开源流媒体服务器：[www.EasyDarwin.org](http://www.easydarwin.org)
+TSINGSEE青犀开放平台：[www.tsingsee.com](http://www.tsingsee.com "TSINGSEE青犀")
 
-Copyright &copy; EasyDarwin Team 2012-2019
-
-![EasyDarwin](http://www.easydarwin.org/skin/easydarwin/images/wx_qrcode.jpg)
+Copyright &copy; TSINGSEE.com 2012~2019
