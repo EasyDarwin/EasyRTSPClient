@@ -301,6 +301,7 @@ int main(int argc, char** argv)
 
 	if(activeRet < 0)
 	{
+		printf("EasyRTSP_Activate fail:%d!\n", activeRet);
 		getchar();
 		return -1;
 	}

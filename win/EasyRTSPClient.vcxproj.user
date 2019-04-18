@@ -11,7 +11,7 @@
     <LocalDebuggerCommandArguments>-d "rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov"</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LocalDebuggerEnvironment>path=%path%;..\Lib</LocalDebuggerEnvironment>
+    <LocalDebuggerEnvironment>path=%path%;..\Lib\x86</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerCommandArguments>-d "rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov"</LocalDebuggerCommandArguments>
   </PropertyGroup>
