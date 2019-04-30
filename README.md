@@ -1,6 +1,6 @@
 # EasyRTSPClient v3.0 #
 
-EasyRTSPClient是[TSINGSEE青犀](http://www.tsingsee.com "TSINGSEE青犀")开放平台开发和提供的一套非常稳定、易用、支持重连的RTSPClient组件，帮助用户非常简单地处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY的复杂流程，担心内存释放的问题了，EasyRTSPClient全平台支持（包括Windows/Linux 32&64，ARM各种平台，Android，iOS），是技术研发快速迭代的工具，也是安防运维人员进行现场问题排查的得力帮手！
+EasyRTSPClient是[TSINGSEE青犀开放平台](http://www.tsingsee.com "TSINGSEE青犀开放平台")开发和提供的一套非常稳定、易用、支持重连的RTSPClient组件，帮助用户非常简单地处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY的复杂流程，担心内存释放的问题了，EasyRTSPClient全平台支持（包括Windows/Linux 32&64，ARM各种平台，Android，iOS），是技术研发快速迭代的工具，也是安防运维人员进行现场问题排查的得力帮手！
 
 ## 调用示例 ##
 
@@ -41,9 +41,11 @@ EasyRTSPClient是[TSINGSEE青犀](http://www.tsingsee.com "TSINGSEE青犀")开�
 	<tr><td>海思</td><td>arm-hisiv200-linux</td><td>./Lib/hisiv200/</td></tr>
 	<tr><td>海思</td><td>arm-hisiv300-linux</td><td>./Lib/hisiv300/</td></tr>
 	<tr><td>海思</td><td>arm-hisiv400-linux</td><td>./Lib/hisiv400/</td></tr>
-	<tr><td>Android</td><td>armeabi</td><td>libEasyRTSPClient.so：https://github.com/EasyDarwin/EasyPlayer_Android</td></tr>
-	<tr><td>iOS</td><td>arm</td><td>libEasyRTSPClient.a：https://github.com/EasyDarwin/EasyPlayer_iOS</td></tr>
-	<tr><td>arago</td><td>arm-arago-linux</td><td>./Lib/arago/</td></tr>
+	<tr><td>海思</td><td>arm-hisiv500-linux</td><td>./Lib/hisiv500/</td></tr>
+	<tr><td>海思</td><td>arm-hisiv600-linux</td><td>./Lib/hisiv600/</td></tr>
+	<tr><td>Android</td><td>arm/arm64/x86/x86_64/mips/mips_64</td><td>arm/arm64/x86/x86_64/mips/mips_64</td></tr>
+	<tr><td>iOS</td><td>arm/arm64</td><td>https://github.com/EasyDSS/EasyPlayer-RTSP-iOS</td></tr>
+
 	<tr><td colspan="3"><center>邮件获取更多平台版本</center></td></tr>
 	</table>
 
@@ -91,6 +93,6 @@ EASY\_SDK\_AUDIO\_FRAME\_FLAG数据可支持多种音频格式：
 
 ## 获取更多信息 ##
 
-TSINGSEE青犀开放平台：[www.tsingsee.com](http://www.tsingsee.com "TSINGSEE青犀")
+TSINGSEE青犀开放平台：[http://open.tsingsee.com](http://open.tsingsee.com "TSINGSEE青犀")
 
 Copyright &copy; TSINGSEE.com 2012~2019
