@@ -6,7 +6,21 @@ EasyRTSPClient在适应新形式下的4G、5G网络环境，以及阿里、腾�
 
 EasyRTSPClient已经成功应用在RTSP播放器[EasyPlayer](http://open.tsingsee.com "EasyPlayer播放器")、行业视频接入网关[EasyRTSPLive](http://open.tsingsee.com "行业视频接入网关")多款产品中，适用于各种安防直播、行业直播、专业设备互联网直播等多种应用场景；
 
-## 调用示例 ##
+
+## 项目依赖
+
+EasyRTSPClient项目依赖1个TSINGSEE青犀开放平台的Git工程：
+
+- Include：https://github.com/tsingsee/Include
+
+目录结构为：
+
+	/
+	/Include/
+	/EasyRTSPClient/
+
+
+## 编译与运行 ##
 
 - **EasyRTSPClient**：以RTSPClient的形式，从RTSP URL将音视频获取到本地；
 	
