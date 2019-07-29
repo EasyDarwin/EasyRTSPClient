@@ -2,6 +2,8 @@
 
 EasyRTSPClient是[TSINGSEE青犀开放平台](http://open.tsingsee.com "TSINGSEE青犀开放平台")开发和提供的一套非常稳定、易用、支持重连的RTSPClient组件，帮助用户非常简单地处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY的复杂流程，担心内存释放的问题了，EasyRTSPClient全平台支持（包括Windows/Linux 32&64，ARM各种平台，Android，iOS），是技术研发快速迭代的工具，也是安防运维人员进行现场问题排查的得力帮手！
 
+EasyRTSPClient在适应新形式下的4G、5G网络环境，以及阿里、腾讯广泛推行的ipv6化网络环境上，EasyRTSPClient同时兼容支持了ipv4 & ipv6网络环境。
+
 EasyRTSPClient已经成功应用在RTSP播放器[EasyPlayer](http://open.tsingsee.com "EasyPlayer播放器")、行业视频接入网关[EasyRTSPLive](http://open.tsingsee.com "行业视频接入网关")多款产品中，适用于各种安防直播、行业直播、专业设备互联网直播等多种应用场景；
 
 ## 调用示例 ##
@@ -29,9 +31,9 @@ EasyRTSPClient已经成功应用在RTSP播放器[EasyPlayer](http://open.tsingse
 		--------------------------------------------------------------
 
 
-- **EasyPlayer调用**：EasyPlayer是由EasyDarwin开源团队开发和维护的一个RTSP播放器项目，目前支持Windows(支持多窗口、包含ActiveX，npAPI Web插件)、Android平台，iOS平台，EasyRTSPClient作为其RTSP/RTP部分组件，为EasyPlayer提供稳定可靠、高兼容性的数据连接；
+- **EasyPlayer-RTSP调用**：EasyPlayer-RTSP是由[TSINGSEE青犀开放平台](http://open.tsingsee.com "TSINGSEE青犀开放平台")团队开发和维护的一个RTSP播放器项目，目前支持Windows(支持多窗口、包含ActiveX，npAPI Web插件)、Android平台，iOS平台，EasyRTSPClient作为其RTSP/RTP部分组件，为EasyPlayer-RTSP提供稳定可靠、高兼容性的数据连接，EasyPlayer-RTSP项目地址：[https://github.com/tsingsee/EasyPlayer-RTSP](https://github.com/tsingsee/EasyPlayer-RTSP "EasyPlayer-RTSP")；
 
-- **EasyClient客户端**：EasyClient是EasyDarwin开源流媒体云平台的客户端实现，包含：Windows、Android、iOS三个部分，EasyRTSPClient为EasyClient提供RTSP/RTP/RTCP协议支撑；
+- **EasyRTSPLive中间件**：RTSP转RTMP中间件服务，拉流IPC摄像机或者NVR硬盘录像机RTSP流转成RTMP推送到阿里云CDN/腾讯云CDN/RTMP流媒体服务器，支持多路RTSP流同时拉取并以RTMP协议推送发布，EasyRTSPLive我们支持任何平台，包括但不限于Windows/Linux/Android/ARM，EasyRTSPLive项目地址：[https://github.com/tsingsee/EasyRTSPLive](https://github.com/tsingsee/EasyRTSPLive "EasyRTSPLive中间件")；
 
 	<table>
 	<tr><td><b>支持平台</b></td><td><b>芯片</b></td><td><b>目录位置</b></td></tr>
