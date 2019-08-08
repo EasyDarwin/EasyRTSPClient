@@ -1,8 +1,8 @@
 /*
-	Copyright (c) 2013-2019 EasyDarwin.ORG.  All rights reserved.
-	Github: https://github.com/EasyDarwin
-	WEChat: EasyDarwin
-	Website: http://www.EasyDarwin.org
+	Copyright (c) 2014-2019 TSINGSEE.com.  All rights reserved.
+	Github: https://github.com/tsingsee
+	WEChat: tsingsee
+	Website: http://open.tsingsee.com
 */
 #include <stdio.h>
 #include <string.h>
@@ -222,6 +222,7 @@ void PrintUsage(char const* progName)
 
 int main(int argc, char** argv)
 {
+	printf("\n*****************EasyRTSPClient-v3.0.190415*******************\n");
 	int activeRet = 0;
 	int ch;
 	// We need at least one "rtsp://" URL argument:
@@ -295,7 +296,7 @@ int main(int argc, char** argv)
 		printf("EASY_ACTIVATE_COMPANY_ID_LEN_ERR!\n");
 		break;
 	case EASY_ACTIVATE_SUCCESS:
-		printf("KEY is EASY_ACTIVATE_SUCCESS!\n");
+		//printf("KEY is EASY_ACTIVATE_SUCCESS!\n");
 		break;
 	}
 
