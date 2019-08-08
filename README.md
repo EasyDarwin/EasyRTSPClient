@@ -4,7 +4,7 @@ EasyRTSPClient是[TSINGSEE青犀开放平台](http://open.tsingsee.com "TSINGSEE
 
 EasyRTSPClient在适应新形式下的4G、5G网络环境，以及阿里、腾讯广泛推行的ipv6化网络环境上，EasyRTSPClient同时兼容支持了ipv4 & ipv6网络环境。
 
-EasyRTSPClient已经成功应用在RTSP播放器[EasyPlayer](http://open.tsingsee.com "EasyPlayer播放器")、行业视频接入网关[EasyRTSPLive](http://open.tsingsee.com "行业视频接入网关")多款产品中，适用于各种安防直播、行业直播、专业设备互联网直播等多种应用场景；
+EasyRTSPClient已经成功应用在RTSP播放器[EasyPlayer](http://open.tsingsee.com/sdk/easyplayer "EasyPlayer播放器")、行业视频接入网关[EasyRTSPLive](http://open.tsingsee.com/middleware/easyrtsplive "行业视频接入网关")多款产品中，适用于各种安防直播、行业直播、专业设备互联网直播等多种应用场景；
 
 
 ## 项目依赖
@@ -127,6 +127,6 @@ EasyRTS应急指挥平台：<a href="http://www.easyrts.com" target="_blank" tit
 
 TSINGSEE青犀开放平台：<a href="http://open.tsingsee.com" target="_blank" title="TSINGSEE青犀开放平台">open.TSINGSEE.com</a>
 
-Copyright © <a href="http://www.tsingsee.com" target="_blank" title="青犀TSINGSEE">www.TSINGSEE.com</a> Team 2012-2019
+Copyright © <a href="http://www.tsingsee.com" target="_blank" title="青犀TSINGSEE">TSINGSEE.com</a> Team 2014-2019
 
 ![青犀TSINGSEE](http://www.easydarwin.org/public/images/tsingsee_qrcode_160.jpg)
