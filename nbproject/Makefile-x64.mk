@@ -54,6 +54,11 @@ ASFLAGS=
 # Link Libraries and Options
 LDLIBSOPTIONS=-LLib/${CND_CONF}
 
+#include
+
+INCLUDE = -I../Include \
+          -I./Include
+
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_CONF}/easyrtspclient
@@ -65,7 +70,7 @@ ${CND_CONF}/easyrtspclient: ${OBJECTFILES}
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -IInclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -O2 ${INCLUDE} -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
