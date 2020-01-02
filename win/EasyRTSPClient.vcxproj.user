@@ -18,6 +18,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerEnvironment>path=%path%;..\Lib\x64</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-d "rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-d "rtsp://shiping:Shiping123456@212.64.34.165:10135/h264/ch33/main/av_stream"</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>
