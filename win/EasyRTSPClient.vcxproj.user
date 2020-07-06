@@ -13,11 +13,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerEnvironment>path=%path%;..\Lib\x86</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-d "rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-d "rtsp://admin:admin12345@192.168.99.103/media/video1"</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerEnvironment>path=%path%;..\Lib\x64</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-d "rtsp://shiping:Shiping123456@212.64.34.165:10135/h264/ch33/main/av_stream"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-d "rtsp://re7.ehome.21cn.com:10003/3TPB0240729J4H5_0?key=8c7f97531712639d9a67664a2563bca5&amp;tk=0c64a58d-2ad8-4c6c-ba05-aba1dcbd5e17"</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>

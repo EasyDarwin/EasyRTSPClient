@@ -10,9 +10,9 @@
 #include "EasyRTSPClientAPI.h"
 
 #ifdef _WIN32
-#define KEY "6D75724D7A4969576B5A754132594E656F58776D4A65314659584E35556C525455454E73615756756443356C6547556A567778576F502B6C2F69426C59584E35"
+#define KEY "6D75724D7A4969576B5A75416C2F4A656F51316F5065314659584E35556C525455454E73615756756443356C65475570567778576F502B392F32566863336B3D"
 #else //Linux
-#define KEY "6D75724D7A4969576B5A754132594E656F58776D4A65314659584E35556C525455454E73615756756443356C6547556A567778576F502B6C2F69426C59584E35"
+#define KEY "6D75724D7A4A4F576B5971416C2F4A656F51316F5066466C59584E35636E527A63474E736157567564434E58444661672F37332F5A57467A65513D3D"
 #endif
 
 FILE* fVideo = NULL;
@@ -72,6 +72,17 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 		}
 		else if(_frameInfo->codec == EASY_SDK_VIDEO_CODEC_H265)
 		{
+			/*if(fSaveFile)
+			{
+				if(fVideo == NULL)
+				{
+					char filename[100] = {0};
+					sprintf(filename, "./video_%s.H264", fTransType?"udp":"tcp");
+					fVideo = ::fopen(filename,"wb");
+				}
+
+				::fwrite(_pBuf, 1, _frameInfo->length, fVideo);
+			}*/
 			if (_frameInfo->type == EASY_SDK_VIDEO_FRAME_I)
 			{
 				printf("Get I H265(%d * %d) Len:%d \ttimestamp:%u.%u\n",_frameInfo->width, _frameInfo->height, _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
@@ -316,7 +327,7 @@ int main(int argc, char** argv)
 	unsigned int mediaType = EASY_SDK_VIDEO_FRAME_FLAG | EASY_SDK_AUDIO_FRAME_FLAG;
 
 	if(fTransType == 0)
-		EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, EASY_RTP_OVER_TCP, mediaType, NULL, NULL, NULL, 1000, 0, 0x01, 3);
+		EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, EASY_RTP_OVER_TCP, mediaType, NULL, NULL, NULL, 1000, 0, 0x00, 0);
 	else
 		EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, EASY_RTP_OVER_UDP, mediaType, NULL, NULL, NULL, 1000, 0, 0x01, 3);
 
