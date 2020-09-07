@@ -13,7 +13,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerEnvironment>path=%path%;..\Lib\x86</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-d "rtsp://admin:admin12345@192.168.99.103/media/video1"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-d "rtsp://shiping:EasyDarwin@112.26.187.12/Streaming/Channels/101"</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerEnvironment>path=%path%;..\Lib\x64</LocalDebuggerEnvironment>
