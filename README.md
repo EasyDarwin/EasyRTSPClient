@@ -43,9 +43,8 @@ EasyRTSPClient已经成功应用在RTSP播放器EasyPlayer-RTSP、行业视频�
 	<tr><td>海思</td><td>arm-hisiv500-linux</td><td>./Lib/hisiv500/</td></tr>
 	<tr><td>海思</td><td>arm-hisiv600-linux</td><td>./Lib/hisiv600/</td></tr>
 	<tr><td>Android</td><td>arm/arm64/x86/x86_64/mips/mips_64</td><td>arm/arm64/x86/x86_64/mips/mips_64</td></tr>
-	<tr><td>iOS</td><td>arm/arm64</td><td>https://github.com/EasyDSS/EasyPlayer-RTSP-iOS</td></tr>
 
-	<tr><td colspan="3"><center>邮件获取更多平台版本</center></td></tr>
+	<tr><td colspan="3"><center>EasyDarwin.org获取更多平台版本</center></td></tr>
 	</table>
 
 
