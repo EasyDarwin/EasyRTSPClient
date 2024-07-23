@@ -1,26 +1,12 @@
-# EasyRTSPClient v3.0 #
+# EasyRTSPClient v3.0
 
-EasyRTSPClient是[TSINGSEE青犀开放平台](http://open.tsingsee.com "TSINGSEE青犀开放平台")开发和提供的一套非常稳定、易用、支持重连的RTSPClient组件，帮助用户非常简单地处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY的复杂流程，担心内存释放的问题了，EasyRTSPClient全平台支持（包括Windows/Linux 32&64，ARM各种平台，Android，iOS），是技术研发快速迭代的工具，也是安防运维人员进行现场问题排查的得力帮手！
+EasyRTSPClient是[EasyDarwin流媒体开源社区](https://www.easydarwin.org "EasyDarwin流媒体开源社区")开发和提供的一套非常稳定、易用、支持重连的RTSPClient组件，帮助用户非常简单地处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY的复杂流程，不用再担心内存释放的问题了，EasyRTSPClient全平台支持（包括Windows/Linux 32&64，ARM各种平台，Android，iOS），是技术研发快速迭代的工具，也是安防运维人员进行现场问题排查的得力帮手！
 
 EasyRTSPClient在适应新形式下的4G、5G网络环境，以及阿里、腾讯广泛推行的ipv6化网络环境上，EasyRTSPClient同时兼容支持了ipv4 & ipv6网络环境。
 
-EasyRTSPClient已经成功应用在RTSP播放器[EasyPlayer](http://open.tsingsee.com/sdk/easyplayer "EasyPlayer播放器")、行业视频接入网关[EasyRTSPLive](http://open.tsingsee.com/middleware/easyrtsplive "行业视频接入网关")多款产品中，适用于各种安防直播、行业直播、专业设备互联网直播等多种应用场景；
+EasyRTSPClient已经成功应用在RTSP播放器EasyPlayer-RTSP、行业视频接入网关EasyRTSPLive多款应用中，适用于各种安防直播、行业直播、专业设备互联网直播等多种应用场景；
 
-
-## 项目依赖
-
-EasyRTSPClient项目依赖1个TSINGSEE青犀开放平台的Git工程：
-
-- Include：https://github.com/tsingsee/Include
-
-目录结构为：
-
-	/
-	/Include/
-	/EasyRTSPClient/
-
-
-## 编译与运行 ##
+## 编译与运行
 
 - **EasyRTSPClient**：以RTSPClient的形式，从RTSP URL将音视频获取到本地；
 	
@@ -44,11 +30,6 @@ EasyRTSPClient项目依赖1个TSINGSEE青犀开放平台的Git工程：
 		For example: EasyRTSPClient.exe -d rtsp://admin:admin@192.168.2.100/11 -m tcp -s yes
 		--------------------------------------------------------------
 
-
-- **EasyPlayer-RTSP调用**：EasyPlayer-RTSP是由[TSINGSEE青犀开放平台](http://open.tsingsee.com "TSINGSEE青犀开放平台")团队开发和维护的一个RTSP播放器项目，目前支持Windows(支持多窗口、包含ActiveX，npAPI Web插件)、Android平台，iOS平台，EasyRTSPClient作为其RTSP/RTP部分组件，为EasyPlayer-RTSP提供稳定可靠、高兼容性的数据连接，EasyPlayer-RTSP项目地址：[https://github.com/tsingsee/EasyPlayer-RTSP](https://github.com/tsingsee/EasyPlayer-RTSP "EasyPlayer-RTSP")；
-
-- **EasyRTSPLive中间件**：RTSP转RTMP中间件服务，拉流IPC摄像机或者NVR硬盘录像机RTSP流转成RTMP推送到阿里云CDN/腾讯云CDN/RTMP流媒体服务器，支持多路RTSP流同时拉取并以RTMP协议推送发布，EasyRTSPLive我们支持任何平台，包括但不限于Windows/Linux/Android/ARM，EasyRTSPLive项目地址：[https://github.com/tsingsee/EasyRTSPLive](https://github.com/tsingsee/EasyRTSPLive "EasyRTSPLive中间件")；
-
 	<table>
 	<tr><td><b>支持平台</b></td><td><b>芯片</b></td><td><b>目录位置</b></td></tr>
 	<tr><td>Windows</td><td>x86</td><td>./Lib/</td></tr>
@@ -67,10 +48,13 @@ EasyRTSPClient项目依赖1个TSINGSEE青犀开放平台的Git工程：
 	<tr><td colspan="3"><center>邮件获取更多平台版本</center></td></tr>
 	</table>
 
-## 调用流程 ##
-![](http://www.easydarwin.org/skin/easydarwin/images/easyrtspclient20160909.gif)
 
-### RTSPSourceCallBack数据回调说明 ###
+### EasyRTSPClient调用流程
+
+|---EasyRTSP_Init实例化拉流对象--->|---EasyRTSP_SetCallback设置数据回调函数接收数据--->|---EasyRTSP_OpenStream打开RTSP地址开始取流--->|---EasyRTSP_CloseStream停止取流--->|---EasyRTSP_Deinit释放拉流对象---|
+
+
+### RTSPSourceCallBack数据回调说明
 EasyRTSPClient可以回调出多种类型的数据：
 
 	#define EASY_SDK_VIDEO_FRAME_FLAG			/* 视频帧数据 */
@@ -102,6 +86,13 @@ EASY\_SDK\_VIDEO\_FRAME\_FLAG数据可支持多种视频格式：
 		0-----------------reserved1---------reserved2-------------------------------length
 
 
+> ***当回调出RTSP_FRAME_INFO->codec为EASY\_SDK\_VIDEO\_CODEC\_H265数据，RTSP_FRAME_INFO->type为EASY\_SDK\_VIDEO\_FRAME\_I关键帧时，我们输出的数据结构为VPS+SPS+PPS+I的组合***：
+		
+		|---------vps---------|---------sps---------|-------pps-------|---------------I Frame---------------|
+		|                     |                     |                 |                                     |
+		0-----------------reserved1------------reserved2----------reserved3------------------------------length
+
+
 EASY\_SDK\_AUDIO\_FRAME\_FLAG数据可支持多种音频格式：
 	
 	#define EASY_SDK_AUDIO_CODEC_AAC			/* AAC */
@@ -111,22 +102,4 @@ EASY\_SDK\_AUDIO\_FRAME\_FLAG数据可支持多种音频格式：
 
 ## 更多流媒体音视频资源
 
-EasyDarwin开源流媒体服务器：<a href="http://www.easydarwin.org" target="_blank" title="EasyDarwin开源流媒体服务器">www.EasyDarwin.org</a>
-
-EasyDSS高性能互联网直播服务：<a href="http://www.easydss.com" target="_blank" title="EasyDSS高性能互联网直播服务">www.EasyDSS.com</a>
-
-EasyNVR安防视频可视化服务：<a href="http://www.easynvr.com" target="_blank" title="EasyNVR安防视频可视化服务">www.EasyNVR.com</a>
-
-EasyNVS视频综合管理平台：<a href="http://www.easynvs.com" target="_blank" title="EasyNVS视频综合管理平台">www.EasyNVS.com</a>
-
-EasyNTS云组网：<a href="http://www.easynts.com" target="_blank" title="EasyNTS云组网">www.EasyNTS.com</a>
-
-EasyGBS国标GB/T28181服务器：<a href="http://www.easygbs.com" target="_blank" title="EasyGBS国标GB/T28181视频服务器">www.EasyGBS.com</a>
-
-EasyRTS应急指挥平台：<a href="http://www.easyrts.com" target="_blank" title="EasyRTS应急指挥平台">www.EasyRTS.com</a>
-
-TSINGSEE青犀开放平台：<a href="http://open.tsingsee.com" target="_blank" title="TSINGSEE青犀开放平台">open.TSINGSEE.com</a>
-
-Copyright © <a href="http://www.tsingsee.com" target="_blank" title="青犀TSINGSEE">TSINGSEE.com</a> Team 2012-2020
-
-![青犀TSINGSEE](http://www.easydarwin.org/public/images/tsingsee_qrcode_160.jpg)
+EasyDarwin开源流媒体服务器：<a href="https://www.easydarwin.org" target="_blank" title="EasyDarwin开源流媒体服务器">www.EasyDarwin.org</a>
