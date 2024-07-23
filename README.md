@@ -80,9 +80,9 @@ EASY\_SDK\_VIDEO\_FRAME\_FLAG数据可支持多种视频格式：
 
 > ***当回调出RTSP_FRAME_INFO->codec为EASY\_SDK\_VIDEO\_CODEC\_H264数据，RTSP_FRAME_INFO->type为EASY\_SDK\_VIDEO\_FRAME\_I关键帧时，我们输出的数据结构为SPS+PPS+I的组合***：
 		
-		|---------sps---------|-------pps-------|---------------I Frame---------------|
-		|                     |                 |                                     |
-		0-----------------reserved1---------reserved2-------------------------------length
+		|-----sps-----|-----pps-----|-----I Frame-----|
+		|             |             |                 |
+		0--------reserved1------reserved2-----------length
 
 
 > ***当回调出RTSP_FRAME_INFO->codec为EASY\_SDK\_VIDEO\_CODEC\_H265数据，RTSP_FRAME_INFO->type为EASY\_SDK\_VIDEO\_FRAME\_I关键帧时，我们输出的数据结构为VPS+SPS+PPS+I的组合***：
