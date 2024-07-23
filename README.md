@@ -51,7 +51,7 @@ EasyRTSPClient已经成功应用在RTSP播放器EasyPlayer-RTSP、行业视频�
 
 ### EasyRTSPClient调用流程
 
-|---EasyRTSP_Init实例化拉流对象--->|---EasyRTSP_SetCallback设置数据回调函数接收数据--->|---EasyRTSP_OpenStream打开RTSP地址开始取流--->|---EasyRTSP_CloseStream停止取流--->|---EasyRTSP_Deinit释放拉流对象---|
+	|---EasyRTSP_Init实例化拉流对象--->|---EasyRTSP_SetCallback设置数据回调函数接收数据--->|---EasyRTSP_OpenStream打开RTSP地址开始取流--->|---EasyRTSP_CloseStream停止取流--->|---EasyRTSP_Deinit释放拉流对象---|
 
 
 ### RTSPSourceCallBack数据回调说明
@@ -88,9 +88,9 @@ EASY\_SDK\_VIDEO\_FRAME\_FLAG数据可支持多种视频格式：
 
 > ***当回调出RTSP_FRAME_INFO->codec为EASY\_SDK\_VIDEO\_CODEC\_H265数据，RTSP_FRAME_INFO->type为EASY\_SDK\_VIDEO\_FRAME\_I关键帧时，我们输出的数据结构为VPS+SPS+PPS+I的组合***：
 		
-		|---------vps---------|---------sps---------|-------pps-------|---------------I Frame---------------|
-		|                     |                     |                 |                                     |
-		0-----------------reserved1------------reserved2----------reserved3------------------------------length
+		|-----vps-----|-----sps-----|-----pps-----|-----I Frame-----|
+		|             |             |             |                 |
+		0--------reserved1-----reserved2------reserved3-----------length
 
 
 EASY\_SDK\_AUDIO\_FRAME\_FLAG数据可支持多种音频格式：
