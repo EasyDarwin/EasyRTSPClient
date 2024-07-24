@@ -9,12 +9,6 @@
 #include "getopt.h"
 #include "EasyRTSPClientAPI.h"
 
-#ifdef _WIN32
-#define KEY "6D75724D7A4969576B5A734162626C676E3061533465314659584E35556C525455454E73615756756443356C6547556A567778576F502F682F32566863336B3D"
-#else //Linux
-#define KEY "6D75724D7A4A4F576B596F4162626C676E3061533466466C59584E35636E527A63474E736157567564436C58444661672F2B482F5A57467A65513D3D"
-#endif
-
 FILE* fVideo = NULL;
 FILE* fAudio = NULL;
 
@@ -29,7 +23,7 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 {
 	if (_frameType == EASY_SDK_VIDEO_FRAME_FLAG)
 	{
-		if (_frameInfo->codec == EASY_SDK_VIDEO_CODEC_H264)
+		if(_frameInfo->codec == EASY_SDK_VIDEO_CODEC_H264)
 		{
 			if(fSaveFile)
 			{
@@ -43,7 +37,7 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 				::fwrite(_pBuf, 1, _frameInfo->length, fVideo);
 			}
 			/* 
-				|SPS+PPS+IDR|
+				|H.264£ºSPS+PPS+IDR|
 				|---------------------|----------------|-------------------------------------|
 				|                     |                |                                     |
 				0-----------------reserved1--------reserved2-------------------------------length
@@ -70,22 +64,43 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 				printf("Get P H264(%d * %d) Len:%d \ttimestamp:%u.%u\n",_frameInfo->width, _frameInfo->height, _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 			}
 		}
+		/*
+			|-----vps-----|-----sps-----|-----pps-----|-----I Frame-----|
+			|             |             |             |                 |
+			0--------reserved1-----reserved2------reserved3-----------length
+		*/
 		else if(_frameInfo->codec == EASY_SDK_VIDEO_CODEC_H265)
 		{
-			/*if(fSaveFile)
+			if(fSaveFile)
 			{
 				if(fVideo == NULL)
 				{
 					char filename[100] = {0};
-					sprintf(filename, "./video_%s.H264", fTransType?"udp":"tcp");
+					sprintf(filename, "./video_%s.H265", fTransType?"udp":"tcp");
 					fVideo = ::fopen(filename,"wb");
 				}
 
 				::fwrite(_pBuf, 1, _frameInfo->length, fVideo);
-			}*/
+			}
 			if (_frameInfo->type == EASY_SDK_VIDEO_FRAME_I)
 			{
-				printf("Get I H265(%d * %d) Len:%d \ttimestamp:%u.%u\n",_frameInfo->width, _frameInfo->height, _frameInfo->length, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
+				char vps[2048] = { 0 };
+				char sps[2048] = { 0 };
+				char pps[2048] = { 0 };
+				char* IFrame = NULL;
+				unsigned int vpsLen,spsLen,ppsLen,iFrameLen = 0;
+
+				vpsLen = _frameInfo->reserved1;							//VPS
+				spsLen = _frameInfo->reserved2 - _frameInfo->reserved1;	// SPS
+				ppsLen = _frameInfo->reserved3 - _frameInfo->reserved2;	// PPS
+				iFrameLen = _frameInfo->length - vpsLen - spsLen - ppsLen;// IDR
+
+				memcpy(vps, _pBuf, vpsLen);
+				memcpy(sps, _pBuf+vpsLen, spsLen);			//SPS
+				memcpy(pps, _pBuf+vpsLen+spsLen, ppsLen);	//PPS
+				IFrame = _pBuf + vpsLen + spsLen + ppsLen;	//IDR
+
+				printf("Get I H265(%d * %d) VPS/SPS/PPS/IDR Len:%d/%d/%d/%d \ttimestamp:%u.%u\n",_frameInfo->width, _frameInfo->height, vpsLen, spsLen, ppsLen, iFrameLen, _frameInfo->timestamp_sec, _frameInfo->timestamp_usec);
 			}
 			else if (_frameInfo->type == EASY_SDK_VIDEO_FRAME_P)
 			{
@@ -233,7 +248,7 @@ void PrintUsage(char const* progName)
 
 int main(int argc, char** argv)
 {
-	printf("\n*****************EasyRTSPClient-v3.0.190415*******************\n");
+	printf("\n*****************EasyRTSPClient-v3.1.240724*******************\n");
 	int activeRet = 0;
 	int ch;
 	// We need at least one "rtsp://" URL argument:
@@ -282,35 +297,7 @@ int main(int argc, char** argv)
 		}
 	}
 
-	activeRet = EasyRTSP_Activate(KEY);
-	switch(activeRet)
-	{
-	case EASY_ACTIVATE_INVALID_KEY:
-		printf("KEY is EASY_ACTIVATE_INVALID_KEY!\n");
-		break;
-	case EASY_ACTIVATE_TIME_ERR:
-		printf("KEY is EASY_ACTIVATE_TIME_ERR!\n");
-		break;
-	case EASY_ACTIVATE_PROCESS_NAME_LEN_ERR:
-		printf("KEY is EASY_ACTIVATE_PROCESS_NAME_LEN_ERR!\n");
-		break;
-	case EASY_ACTIVATE_PROCESS_NAME_ERR:
-		printf("KEY is EASY_ACTIVATE_PROCESS_NAME_ERR!\n");
-		break;
-	case EASY_ACTIVATE_VALIDITY_PERIOD_ERR:
-		printf("KEY is EASY_ACTIVATE_VALIDITY_PERIOD_ERR!\n");
-		break;
-	case EASY_ACTIVATE_PLATFORM_ERR:
-		printf("EASY_ACTIVATE_PLATFORM_ERR!\n");
-		break;
-	case EASY_ACTIVATE_COMPANY_ID_LEN_ERR:
-		printf("EASY_ACTIVATE_COMPANY_ID_LEN_ERR!\n");
-		break;
-	case EASY_ACTIVATE_SUCCESS:
-		//printf("KEY is EASY_ACTIVATE_SUCCESS!\n");
-		break;
-	}
-
+	activeRet = EasyRTSP_Activate("https://www.easydarwin.org/");
 	if(activeRet < 0)
 	{
 		printf("EasyRTSP_Activate fail:%d!\n", activeRet);
