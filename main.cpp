@@ -1,8 +1,8 @@
 /*
-	Copyright (c) 2014-2019 TSINGSEE.com.  All rights reserved.
-	Github: https://github.com/tsingsee
-	WEChat: tsingsee
-	Website: http://open.tsingsee.com
+	Copyright (c) 2014-2024 EasyDarwin.org All rights reserved.
+	Github: https://github.com/easydarwin
+	WEChat: EasyDarwin
+	Website: https://www.easydarwin.org
 */
 #include <stdio.h>
 #include <string.h>
@@ -15,9 +15,8 @@ FILE* fAudio = NULL;
 char* fRTSPURL = NULL;		//rtsp source addrs
 int fTransType = 0;			//0 : TCP    1 : UDP
 bool fSaveFile = true;		//true : save file     false : don't save
-
-
 Easy_Handle fRTSPHandle = 0;
+
 
 int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, char *_pBuf, EASY_FRAME_INFO* _frameInfo)
 {
@@ -230,11 +229,6 @@ int Easy_APICALL __RTSPClientCallBack( int _chid, void *_chPtr, int _frameType, 
 	return 0;
 }
 
-void usage(char const* progName) 
-{
-  printf("Usage: %s <rtsp-url> \n", progName);
-}
-
 void PrintUsage(char const* progName)
 {
 	printf("Usage:\n");
@@ -242,7 +236,7 @@ void PrintUsage(char const* progName)
 	printf("%s -d <rtsp-url>[ -m <transport-mode> -s <save-file>]\n", progName);
 	printf("Help Mode:   %s -h \n", progName );
 	printf("rtsp-url : source rtsp address\ntransport-mode : tcp or udp, default is tcp\nsave-file : yes or no, default is yes\n");
-	printf("For example: %s -d rtsp://admin:admin@192.168.2.100/11 -m tcp -s yes\n", progName); 
+	printf("For example: %s -d \"rtsp://admin:admin@192.168.2.100/11\" -m tcp -s yes\n", progName); 
 	printf("--------------------------------------------------------------\n");
 }
 
@@ -318,7 +312,7 @@ int main(int argc, char** argv)
 	else
 		EasyRTSP_OpenStream(fRTSPHandle, 0, fRTSPURL, EASY_RTP_OVER_UDP, mediaType, NULL, NULL, NULL, 1000, 0, 0x01, 3);
 
-	printf("Press Enter exit...\n");
+	printf("Press any key exit...\n");
 	getchar();
    
 	EasyRTSP_CloseStream(fRTSPHandle);
